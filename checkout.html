@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - 3D Model E-commerce Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Navbar content (same as index.html) -->
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="mb-4">Checkout</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <form>
+                    <h3 class="mb-3">Shipping Information</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="zip" class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="zip" required>
+                        </div>
+                    </div>
+                    <h3 class="mb-3 mt-4">Payment Information</h3>
+                    <div class="mb-3">
+                        <label for="cardName" class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" id="cardName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="expiration" class="form-label">Expiration</label>
+                            <input type="text" class="form-control" id="expiration" placeholder="MM/YY" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Place Order</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Summary</h5>
+                        <p class="card-text">Modern Chair x 1: $199.99</p>
+                        <p class="card-text">Shipping: $10.00</p>
+                        <p class="card-text">Tax: $20.00</p>
+                        <h4>Total: $229.99</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <!-- Footer content (same as index.html) -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı - DesignConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #3498db;
+        }
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .product-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .product-image {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        .product-description {
+            margin-bottom: 20px;
+        }
+        .product-features {
+            margin-bottom: 20px;
+        }
+        .product-features h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .quantity-selector button {
+            background-color: #f1f3f5;
+            border: none;
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ced4da;
+            margin: 0 10px;
+        }
+        .seller-info {
+            background-color: #f1f3f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .related-products {
+            margin-top: 40px;
+        }
+        .related-product-card {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 0 10px;
+        }
+        .related-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+        }
+        .slick-prev:before, .slick-next:before {
+            color: #3498db;
+        }
+        .related-product-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        .related-product-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .related-product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+        .related-product-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                DesignConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Ürünler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="3d-model-platform.html">Tasarımlar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-profile.html">Mimarlar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manufacturer-panel.html">Üreticiler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Hakkımızda</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Giriş Yap</a>
+                    <a href="signup.html" class="btn btn-primary">Kayıt Ol</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="product-container" id="productDetail">
+            <!-- Ürün detayları JavaScript ile buraya eklenecek -->
+        </div>
+
+        <div class="related-products">
+            <h3 class="mb-4">İlgili Ürünler</h3>
+            <div id="relatedProductsCarousel">
+                <!-- İlgili ürünler JavaScript ile buraya eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Örnek ürün verileri
+        const products = [
+            { 
+                id: 1, 
+                name: "Modern Sandalye", 
+                description: "Bu modern sandalye, şık tasarımı ve üstün konforu ile evinizin veya ofisinizin vazgeçilmez bir parçası olacak. Ergonomik yapısı uzun süreli oturmalarda bile rahatlık sağlar.",
+                price: 599.99, 
+                modelPrice: 49.99,
+                category: "mobilya", 
+                image: "https://via.placeholder.com/500x500?text=Modern+Sandalye",
+                features: [
+                    "Yüksek kaliteli ahşap ve metal karışımı",
+                    "Ergonomik tasarım",
+                    "Kolay temizlenebilir kumaş",
+                    "Farklı renk seçenekleri",
+                    "Maksimum 120 kg taşıma kapasitesi"
+                ],
+                seller: {
+                    name: "Mobilya Dünyası",
+                    rating: 4.5,
+                    productCount: 150
+                },
+                rating: 4.7
+            },
+            { 
+                id: 2, 
+                name: "Minimalist Masa", 
+                description: "Sade ve fonksiyonel tasarımıyla her mekana uyum sağlayan minimalist masa.",
+                price: 899.99, 
+                modelPrice: 79.99,
+                category: "mobilya", 
+                image: "https://via.placeholder.com/500x500?text=Minimalist+Masa",
+                features: [
+                    "Dayanıklı ahşap malzeme",
+                    "Kolay montaj",
+                    "Geniş çalışma alanı",
+                    "Modern tasarım"
+                ],
+                seller: {
+                    name: "Tasarım Mobilya",
+                    rating: 4.7,
+                    productCount: 200
+                },
+                rating: 4.5
+            },
+            { 
+                id: 3, 
+                name: "Dekoratif Lamba", 
+                description: "Evinize şıklık katacak modern tasarımlı dekoratif lamba.",
+                price: 299.99, 
+                modelPrice: 29.99,
+                category: "aydinlatma", 
+                image: "https://via.placeholder.com/500x500?text=Dekoratif+Lamba",
+                features: [
+                    "Enerji tasarruflu LED aydınlatma",
+                    "Ayarlanabilir ışık yoğunluğu",
+                    "Şık ve modern tasarım",
+                    "Uzun ömürlü"
+                ],
+                seller: {
+                    name: "Aydınlatma Merkezi",
+                    rating: 4.3,
+                    productCount: 80
+                },
+                rating: 4.2
+            },
+            { 
+                id: 4, 
+                name: "Ahşap Kitaplık", 
+                description: "Geniş depolama alanı sunan şık ve dayanıklı ahşap kitaplık.",
+                price: 749.99, 
+                modelPrice: 59.99,
+                category: "mobilya", 
+                image: "https://via.placeholder.com/500x500?text=Ahşap+Kitaplık",
+                features: [
+                    "Doğal ahşap malzeme",
+                    "Ayarlanabilir raflar",
+                    "Yüksek depolama kapasitesi",
+                    "Klasik tasarım"
+                ],
+                seller: {
+                    name: "Kitap Evi Mobilya",
+                    rating: 4.6,
+                    productCount: 120
+                },
+                rating: 4.8
+            },
+            { 
+                id: 5, 
+                name: "Modern Koltuk", 
+                description: "Konforlu ve şık tasarımıyla evinize modern bir hava katacak koltuk.",
+                price: 1299.99, 
+                modelPrice: 99.99,
+                category: "mobilya", 
+                image: "https://via.placeholder.com/500x500?text=Modern+Koltuk",
+                features: [
+                    "Yüksek kaliteli kumaş",
+                    "Ergonomik tasarım",
+                    "Geniş oturma alanı",
+                    "Kolay temizlenebilir"
+                ],
+                seller: {
+                    name: "Lüks Mobilya",
+                    rating: 4.8,
+                    productCount: 180
+                },
+                rating: 4.6
+            },
+        ];
+
+        // URL'den ürün ID'sini al
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+
+        // Ürün detaylarını göster
+        function displayProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const productDetailHtml = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="product-image">
+                                <img src="${product.image}" alt="${product.name}" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h1 class="product-title">${product.name}</h1>
+                            <p class="product-price">${product.price.toFixed(2)} ₺</p>
+                            <div class="mb-3">
+                                ${getStarRating(product.rating)}
+                            </div>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-features">
+                                <h3>Özellikler</h3>
+                                <ul>
+                                    ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="quantity-selector">
+                                <button onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1">
+                                <button onclick="increaseQuantity()">+</button>
+                            </div>
+                            <button class="btn btn-primary me-2" onclick="addToCart(${product.id})">
+                                <i class="fas fa-shopping-cart me-2"></i>Sepete Ekle
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="downloadModel(${product.id})">
+                                <i class="fas fa-download me-2"></i>3B Modeli İndir (${product.modelPrice.toFixed(2)} ₺)
+                            </button>
+                            <div class="seller-info mt-4">
+                                <h4>Satıcı Bilgileri</h4>
+                                <p><strong>Satıcı:</strong> ${product.seller.name}</p>
+                                <p><strong>Değerlendirme:</strong> ${product.seller.rating}/5 <i class="fas fa-star text-warning"></i></p>
+                                <p><strong>Toplam Ürün:</strong> ${product.seller.productCount}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('productDetail').innerHTML = productDetailHtml;
+            } else {
+                document.getElementById('productDetail').innerHTML = '<p>Ürün bulunamadı.</p>';
+            }
+        }
+
+        // Yıldız değerlendirmesi oluştur
+        function getStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+
+            return `
+                ${'<i class="fas fa-star text-warning"></i>'.repeat(fullStars)}
+                ${halfStar ? '<i class="fas fa-star-half-alt text-warning"></i>' : ''}
+                ${'<i class="far fa-star text-warning"></i>'.repeat(emptyStars)}
+                <span class="ms-2">${rating.toFixed(1)}</span>
+            `;
+        }
+
+        // İlgili ürünleri göster
+        function displayRelatedProducts(currentProductId) {
+            const relatedProducts = products.filter(p => p.id !== currentProductId);
+            const relatedProductsHtml = relatedProducts.map(product => `
+                <div class="related-product-card">
+                    <img src="${product.image}" class="card-img-top related-product-image" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="related-product-title">${product.name}</h5>
+                        <p class="related-product-price">${product.price.toFixed(2)} ₺</p>
+                        <div class="related-product-rating mb-2">
+                            ${getStarRating(product.rating)}
+                        </div>
+                        <a href="product-detail.html?id=${product.id}" class="btn btn-primary btn-sm">İncele</a>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('relatedProductsCarousel').innerHTML = relatedProductsHtml;
+
+            // Slick Carousel'ı başlat
+            $('#relatedProductsCarousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        }
+
+        // Sayfa yüklendiğinde ürün detaylarını ve ilgili ürünleri göster
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProductDetails(productId);
+            displayRelatedProducts(productId);
+        });
+
+        // Miktar arttırma ve azaltma fonksiyonları
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        }
+
+        // 3B Model indirme fonksiyonu
+        function downloadModel(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                alert(`3B Model indirme işlemi başlatılıyor. Fiyat: ${product.modelPrice.toFixed(2)} ₺`);
+                // Burada gerçek indirme ve ödeme işlemi yapılacak
+            }
+        }
+
+        // Sepete ekleme fonksiyonu
+        function addToCart(productId) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            alert(`Ürün sepete eklendi. Ürün ID: ${productId}, Miktar: ${quantity}`);
+            // Burada gerçek sepete ekleme işlemi yapılacak
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - DesignConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+        .login-header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .login-form {
+            padding: 20px;
+        }
+        .form-control {
+            border-radius: 25px;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .btn {
+            border-radius: 25px;
+            font-weight: 600;
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+        .btn-login {
+            background-color: #3498db;
+            border: none;
+            color: #ffffff;
+        }
+        .btn-login:hover {
+            background-color: #2980b9;
+        }
+        .btn-social {
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e0e0e0;
+            background-color: #ffffff;
+            color: #333;
+        }
+        .btn-social:hover {
+            background-color: #f8f9fa;
+        }
+        .btn-social i {
+            margin-right: 10px;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        #errorMessage, #successMessage {
+            display: none;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .form-floating label {
+            padding-left: 15px;
+            font-size: 14px;
+        }
+        .form-floating .form-control {
+            padding-left: 35px;
+        }
+        .login-type-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .login-type-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .login-type-btn.active {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .divider span {
+            padding: 0 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        @media (max-width: 576px) {
+            .login-container {
+                max-width: 100%;
+            }
+            .login-header h1 {
+                font-size: 20px;
+            }
+            .form-control, .btn, .form-floating label, .login-type-btn, #errorMessage, #successMessage, .divider span {
+                font-size: 12px;
+            }
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <svg class="logo" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h1>DesignConnect</h1>
+        </div>
+        <div class="login-form">
+            <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+            <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+            <div class="login-type-selector">
+                <button id="customerBtn" class="login-type-btn active">Müşteri Girişi</button>
+                <button id="sellerBtn" class="login-type-btn">Satıcı Girişi</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="E-posta adresiniz" required>
+                    <label for="email"><i class="fas fa-envelope me-2"></i>E-posta adresiniz</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Şifreniz" required>
+                    <label for="password"><i class="fas fa-lock me-2"></i>Şifreniz</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                        Beni hatırla
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-login w-100 mb-3">Giriş Yap</button>
+            </form>
+            <div class="divider">
+                <span>veya</span>
+            </div>
+            <button class="btn btn-social mb-2" onclick="socialLogin('google')">
+                <i class="fab fa-google"></i> Google ile Giriş Yap
+            </button>
+            <button class="btn btn-social mb-3" onclick="socialLogin('apple')">
+                <i class="fab fa-apple"></i> Apple ile Giriş Yap
+            </button>
+            <div class="text-center">
+                <a href="/forgot-password.html" class="text-decoration-none text-muted">Şifremi Unuttum</a>
+            </div>
+            <div class="mt-3 text-center">
+                <span class="text-muted">Hesabınız yok mu?</span> 
+                <a href="/signup.html" class="text-decoration-none">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const App = {
+        loginType: 'customer',
+        elements: {
+            form: document.getElementById('loginForm'),
+            email: document.getElementById('email'),
+            password: document.getElementById('password'),
+            rememberMe: document.getElementById('rememberMe'),
+            customerBtn: document.getElementById('customerBtn'),
+            sellerBtn: document.getElementById('sellerBtn'),
+            errorMessage: document.getElementById('errorMessage'),
+            successMessage: document.getElementById('successMessage')
+        },
+
+        init() {
+            this.bindEvents();
+            this.checkRememberedUser();
+            this.checkLoggedInUser();
+        },
+
+        bindEvents() {
+            this.elements.form.addEventListener('submit', this.handleSubmit.bind(this));
+            this.elements.customerBtn.addEventListener('click', () => this.setLoginType('customer'));
+            this.elements.sellerBtn.addEventListener('click', () => this.setLoginType('seller'));
+        },
+
+        setLoginType(type) {
+            this.loginType = type;
+            if (type === 'customer') {
+                this.elements.customerBtn.classList.add('active');
+                this.elements.sellerBtn.classList.remove('active');
+            } else {
+                this.elements.sellerBtn.classList.add('active');
+                this.elements.customerBtn.classList.remove('active');
+            }
+        },
+
+        checkRememberedUser() {
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                const user = JSON.parse(rememberedUser);
+                this.elements.email.value = user.email;
+                this.elements.rememberMe.checked = true;
+            }
+        },
+
+        checkLoggedInUser() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                window.location.href = '/dashboard.html';
+            }
+        },
+
+        async handleSubmit(e) {
+            e.preventDefault();
+            const email = this.elements.email.value;
+            const password = this.elements.password.value;
+            const rememberMe = this.elements.rememberMe.checked;
+
+            if (!this.validateForm()) {
+                return;
+            }
+
+            try {
+                const data = await this.login(email, password);
+                this.handleSuccessfulLogin(data, rememberMe);
+            } catch (error) {
+                this.showError(error.message);
+            }
+        },
+
+        validateForm() {
+            const email = this.elements.email.value;
+            const password = this.elements.password.value;
+
+            if (!email || !password) {
+                this.showError('Lütfen tüm alanları doldurun.');
+                return false;
+            }
+
+            if (!this.isValidEmail(email)) {
+                this.showError('Lütfen geçerli bir e-posta adresi girin.');
+                return false;
+            }
+
+            return true;
+        },
+
+        isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        },
+
+        async login(email, password) {
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password, userType: this.loginType }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.msg || 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Login error:', error);
+                throw error;
+            }
+        },
+
+        handleSuccessfulLogin(data, rememberMe) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            if (rememberMe) {
+                localStorage.setItem('rememberedUser', JSON.stringify({ email: data.user.email }));
+            } else {
+                localStorage.removeItem('rememberedUser');
+            }
+
+            this.showSuccess('Giriş başarılı! Yönlendiriliyorsunuz...');
+            setTimeout(() => {
+                window.location.href = this.loginType === 'customer' ? '/customer-dashboard.html' : '/seller-dashboard.html';
+            }, 2000);
+        },
+
+        showError(message) {
+            this.elements.errorMessage.textContent = message;
+            this.elements.errorMessage.style.display = 'block';
+            this.elements.successMessage.style.display = 'none';
+        },
+
+        showSuccess(message) {
+            this.elements.successMessage.textContent = message;
+            this.elements.successMessage.style.display = 'block';
+            this.elements.errorMessage.style.display = 'none';
+        }
+    };
+
+    function socialLogin(provider) {
+        window.location.href = `/api/auth/${provider}`;
+    }
+
+    App.init();
+    </script>
+</body>
+</html>
