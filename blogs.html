@@ -368,41 +368,37 @@
         });
 
         // Kategori filtreleme
+        // Kategori filtreleme
         const categoryButtons = document.querySelectorAll('.category-btn');
         const blogPosts = document.querySelectorAll('.blog-post');
-
+        
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Aktif kategori butonunu güncelle
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.background = 'var(--primary-color)';
+                });
                 button.classList.add('active');
-
-                // Seçilen kategoriyi al
-                const selectedCategory = button.textContent.toLowerCase();
-
+                button.style.background = 'var(--accent-color)';
+        
+                // Seçilen kategoriyi al ve küçük harfe çevir
+                const selectedCategory = button.textContent.trim().toLowerCase();
+        
                 // Her blog postunu kontrol et
                 blogPosts.forEach(post => {
-                    const postCategory = post.querySelector('.post-meta .category').textContent.toLowerCase();
+                    // Kategori metnini al ve küçük harfe çevir
+                    const postCategory = post.querySelector('.category').textContent.trim().toLowerCase();
                     
-                    post.classList.add('hide');
-                    
-                    setTimeout(() => {
-                        if (selectedCategory === 'tümü') {
-                            post.style.display = 'block';
-                            setTimeout(() => post.classList.remove('hide'), 50);
-                        } else {
-                            if (postCategory === selectedCategory) {
-                                post.style.display = 'block';
-                                setTimeout(() => post.classList.remove('hide'), 50);
-                            } else {
-                                post.style.display = 'none';
-                            }
-                        }
-                    }, 300);
+                    // Tümü seçiliyse veya kategoriler eşleşiyorsa göster
+                    if (selectedCategory === 'tümü' || postCategory === selectedCategory) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
                 });
             });
         });
-
         // Sayfa yüklendiğinde tüm postları göster
         window.addEventListener('load', () => {
             blogPosts.forEach(post => post.classList.remove('hide'));
