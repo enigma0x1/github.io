@@ -85,28 +85,119 @@
             margin-left: 20px;
             color: var(--text-color);
         }
+
+        /* Plak Çalar Stilleri */
+        .record-player {
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .record-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .record {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: none;
+        }
+
+        .record.playing {
+            animation: spin 2s linear infinite;
+        }
+
+        .label {
+            width: 40%;
+            height: 40%;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .tonearm {
+            width: 100px;
+            height: 15px;
+            background: #95a5a6;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform-origin: right center;
+            transform: rotate(-40deg);
+            transition: transform 0.5s ease;
+        }
+
+        .tonearm::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #7f8c8d;
+            border-radius: 50%;
+            right: -10px;
+            top: -2.5px;
+        }
+
+        .tonearm.playing {
+            transform: rotate(-25deg);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">SS Kulübü</a>
-                <ul id="menu">
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><a href="blogs.html">Tüm Yazılar</a></li>
-                </ul>
-                <div class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
+        <nav>
+            <a href="index.html" class="logo">SS Kulübü</a>
+            <ul id="menu">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html#cinema">Sinema</a></li>
+                <li><a href="index.html#politics">Siyaset</a></li>
+                <li><a href="index.html#events">Etkinlikler</a></li>
+                <li><a href="blogs.html">Tüm Yazılar</a></li>
+                <li><a href="index.html#contact">İletişim</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
     </header>
 
     <!-- Write Form Section -->
     <section class="write-section">
         <div class="container">
+            <!-- Plak Çalar -->
+            <div class="record-player">
+                <div class="record-container">
+                    <div class="record">
+                        <div class="label"></div>
+                    </div>
+                    <div class="tonearm"></div>
+                </div>
+                <audio id="music" src="path/to/your/music.mp3"></audio>
+            </div>
+
             <form class="write-form">
                 <h2>Yazı Gönder</h2>
                 
@@ -174,6 +265,37 @@
 
         menuToggle.addEventListener('click', () => {
             menu.classList.toggle('show');
+        });
+
+        // Plak Çalar Kontrolü
+        const recordPlayer = document.querySelector('.record-player');
+        const record = document.querySelector('.record');
+        const tonearm = document.querySelector('.tonearm');
+        const audio = document.getElementById('music');
+        let isPlaying = false;
+
+        recordPlayer.addEventListener('click', () => {
+            if (!isPlaying) {
+                // Başlat
+                record.classList.add('playing');
+                tonearm.classList.add('playing');
+                audio.play();
+                isPlaying = true;
+            } else {
+                // Durdur
+                record.classList.remove('playing');
+                tonearm.classList.remove('playing');
+                audio.pause();
+                audio.currentTime = 0;
+                isPlaying = false;
+            }
+        });
+
+        // Müzik bittiğinde plağı durdur
+        audio.addEventListener('ended', () => {
+            record.classList.remove('playing');
+            tonearm.classList.remove('playing');
+            isPlaying = false;
         });
 
         // Form Submit
