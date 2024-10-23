@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sinema ve Siyaset Kulübü</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         :root {
             --primary-color: #6c5ce7;
@@ -16,12 +17,20 @@
             --klapet-color: #000000;
             --microphone-color: #00b894;
             --divider-color: #e0e0e0;
+            --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
+            --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+            --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
         
         body {
@@ -39,7 +48,8 @@
         }
         
         header {
-            background-color: var(--primary-color);
+            background: rgba(108, 92, 231, 0.9);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
@@ -53,6 +63,12 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--bg-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         nav {
@@ -75,59 +91,112 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
+            position: relative;
         }
         
-        nav ul li a:hover {
-            color: var(--secondary-color);
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
         }
         
         .hero {
-            min-height: 60vh;
+            min-height: 100vh;
             padding: 4rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: var(--secondary-color);
-            margin-top: 60px;
+            background: var(--primary-gradient);
+            margin-top: 0;
             position: relative;
             overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz4KPHBhdGggZD0iTTAgMGg2MHY2MEgweiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iMC4wNSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4=');
+            opacity: 0.1;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
         
         .hero-content {
-            max-width: 600px;
-            padding: 0 1rem;
+            max-width: 800px;
+            padding: 0 2rem;
             position: relative;
             z-index: 2;
         }
         
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 1rem;
             font-family: 'Playfair Display', serif;
-            color: var(--primary-color);
+            background: linear-gradient(45deg, #fff, #ffeaa7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
         
         .hero p {
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             margin-bottom: 2rem;
-            color: var(--text-color);
+            color: var(--bg-color);
+            opacity: 0.9;
         }
         
         .btn {
             display: inline-block;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: var(--bg-color);
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
         }
-        
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: var(--hover-gradient);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            left: 0;
+        }
+
         .btn:hover {
-            background-color: var(--accent-color);
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
         .klapet, .microphone {
@@ -135,117 +204,140 @@
             font-size: 12rem;
             opacity: 0.6;
             z-index: 1;
+            color: rgba(255, 255, 255, 0.2);
         }
         
         .klapet {
             left: -150px;
             bottom: 30px;
-            color: var(--klapet-color);
             animation: slideInLeft 1.5s ease forwards, float 3s ease-in-out infinite;
         }
         
         .microphone {
             right: -150px;
             top: 30px;
-            color: var(--microphone-color);
             animation: slideInRight 1.5s ease forwards, rotate 3s ease-in-out infinite;
         }
         
         @keyframes slideInLeft {
-            to {
-                left: 50px;
-            }
+            to { left: 50px; }
         }
         
         @keyframes slideInRight {
-            to {
-                right: 50px;
-            }
+            to { right: 50px; }
         }
         
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         @keyframes rotate {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-            25% {
-                transform: rotate(5deg);
-            }
-            75% {
-                transform: rotate(-5deg);
-            }
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
         }
         
         section {
-            padding: 4rem 0;
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: var(--divider-color);
         }
         
         h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
             text-align: center;
             font-family: 'Playfair Display', serif;
             color: var(--primary-color);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
         
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1rem;
         }
         
         .card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
         
         .card i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
             color: var(--accent-color);
+            transition: transform 0.3s ease;
         }
-        
-        footer {
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            text-align: center;
-            padding: 2rem 0;
+
+        .card:hover i {
+            transform: scale(1.1);
         }
-        
-        .user-actions {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
         }
-        
-        .user-actions a {
-            color: var(--bg-color);
-            text-decoration: none;
-            margin-left: 1rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
+
+        .card p {
+            color: var(--text-color);
+            opacity: 0.8;
         }
-        
-        .user-actions a:hover {
-            color: var(--secondary-color);
+                /* Form Stilleri */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        
+
+        form input, form textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        form input:focus, form textarea:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Modal Stilleri */
         .modal {
             display: none;
             position: fixed;
@@ -254,95 +346,153 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
             background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
         }
-        
+
         .modal-content {
-            background-color: var(--bg-color);
+            background: var(--card-gradient);
             margin: 15% auto;
             padding: 2rem;
-            border: 1px solid var(--secondary-color);
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
             position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
         }
-        
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
         .close {
-            color: var(--text-color);
             position: absolute;
-            top: 10px;
             right: 20px;
+            top: 15px;
             font-size: 28px;
             font-weight: bold;
+            color: var(--text-color);
             cursor: pointer;
+            transition: color 0.3s ease;
         }
-        
+
         .close:hover {
             color: var(--accent-color);
         }
-        
-        form input, form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-        }
-        
-        form input:focus, form textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-        
-        #userContent {
+
+        /* Loading Spinner */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--secondary-color);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
             display: none;
         }
 
-        #cinema, #politics {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            position: relative;
+        @keyframes rotation {
+            0% { transform: translate(-50%, -50%) rotate(0deg) }
+            100% { transform: translate(-50%, -50%) rotate(360deg) }
         }
 
-        #cinema::after, #politics::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background-color: var(--divider-color);
+        /* Latest Posts Section */
+        .latest-posts {
+            background: var(--bg-color);
+            padding: 4rem 0;
         }
 
-        #cinema .container, #politics .container {
-            position: relative;
-            z-index: 1;
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
         }
 
-        #cinema .card, #politics .card {
-            background-color: var(--card-bg);
-            color: var(--text-color);
+        .post-card {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
-        #cinema .card i, #politics .card i {
-            color: var(--accent-color);
+        .post-card:hover {
+            transform: translateY(-5px);
         }
 
-        #events h2 {
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
             color: var(--primary-color);
         }
 
+        .post-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--bg-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-gradient);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
             nav ul {
-                flex-direction: column;
+                display: none;
                 position: absolute;
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: var(--primary-color);
-                display: none;
+                background: var(--primary-gradient);
+                flex-direction: column;
+                padding: 1rem 0;
             }
 
             nav ul.show {
@@ -351,38 +501,73 @@
 
             nav ul li {
                 margin: 0;
-                text-align: center;
                 padding: 1rem 0;
+                text-align: center;
             }
 
             .menu-toggle {
                 display: block;
-                cursor: pointer;
                 color: var(--bg-color);
                 font-size: 1.5rem;
+                cursor: pointer;
             }
 
             .hero {
-                min-height: 50vh;
-            }
-
-            .hero-content {
-                padding: 0 2rem;
+                min-height: 80vh;
             }
 
             .klapet, .microphone {
                 font-size: 6rem;
             }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader" id="loader"></div>
+
     <header>
         <div class="container">
             <nav>
-                <div class="logo">SS Kulübü</div>
+                <a href="#" class="logo">SS Kulübü</a>
                 <ul id="menu">
                     <li><a href="#home">Ana Sayfa</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="#cinema">Sinema</a></li>
                     <li><a href="#politics">Siyaset</a></li>
                     <li><a href="#events">Etkinlikler</a></li>
@@ -395,11 +580,6 @@
         </div>
     </header>
 
-    <div class="user-actions">
-        <a href="#" id="loginBtn">Giriş Yap</a>
-        <a href="#" id="registerBtn">Kayıt Ol</a>
-    </div>
-
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Sinema ve Siyaset Kulübü</h1>
@@ -408,6 +588,15 @@
         </div>
         <i class="fas fa-film klapet"></i>
         <i class="fas fa-microphone-alt microphone"></i>
+    </section>
+
+    <section class="latest-posts">
+        <div class="container">
+            <h2>Son Yazılar</h2>
+            <div class="posts-grid">
+                <!-- Son yazılar buraya eklenecek -->
+            </div>
+        </div>
     </section>
 
     <section id="cinema">
@@ -458,19 +647,22 @@
 
     <section id="events">
         <div class="container">
-            <h2>YAKLAŞAN ETKİNLİKLER</h2>
+            <h2>Yaklaşan Etkinlikler</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>Film Gösterimi: "12 Öfkeli Adam"</h3>
-                    <p>12 Haziran 2024, 19:00</p>
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Film Gösterimi</h3>
+                    <p>"12 Öfkeli Adam" - 12 Haziran 2024, 19:00</p>
                 </div>
                 <div class="card">
-                    <h3>Panel: Siyaset ve Medya İlişkisi</h3>
-                    <p>20 Haziran 2024, 14:00</p>
+                    <i class="fas fa-users"></i>
+                    <h3>Panel</h3>
+                    <p>Siyaset ve Medya İlişkisi - 20 Haziran 2024</p>
                 </div>
                 <div class="card">
-                    <h3>Atölye: Politik Sinema</h3>
-                    <p>5 Temmuz 2024, 10:00</p>
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Atölye</h3>
+                    <p>Politik Sinema - 5 Temmuz 2024</p>
                 </div>
             </div>
         </div>
@@ -479,12 +671,17 @@
     <section id="contact">
         <div class="container">
             <h2>İletişim</h2>
-            <form>
-                <input type="text" placeholder="Adınız" required>
-                <input type="email" placeholder="E-posta Adresiniz" required>
-                <textarea placeholder="Mesajınız" required></textarea>
+            <form action="https://formsubmit.co/your@email.com" method="POST">
+                <input type="text" name="name" placeholder="Adınız" required>
+                <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+                <textarea name="message" placeholder="Mesajınız" required></textarea>
                 <button type="submit" class="btn">Gönder</button>
             </form>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
     </section>
 
@@ -495,89 +692,50 @@
         </div>
     </footer>
 
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Giriş Yap</h2>
-            <form id="loginForm">
-                <input type="email" placeholder="E-posta" required>
-                <input type="password" placeholder="Şifre" required>
-                <button type="submit" class="btn">Giriş Yap</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Kayıt Ol</h2>
-            <form id="registerForm">
-                <input type="text" placeholder="Ad Soyad" required>
-                <input type="email" placeholder="E-posta" required>
-                <input type="password" placeholder="Şifre" required>
-                <input type="password" placeholder="Şifre Tekrar" required>
-                <button type="submit" class="btn">Kayıt Ol</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script>
-        const loginModal = document.getElementById("loginModal");
-        const registerModal = document.getElementById("registerModal");
-        const loginBtn = document.getElementById("loginBtn");
-        const registerBtn = document.getElementById("registerBtn");
-        const closeBtns = document.getElementsByClassName("close");
-        const menuToggle = document.getElementById("menuToggle");
-        const menu = document.getElementById("menu");
+        // Mobil menü
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
 
-        loginBtn.onclick = function() {
-            loginModal.style.display = "block";
-        }
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
 
-        registerBtn.onclick = function() {
-            registerModal.style.display = "block";
-        }
-
-        for (let closeBtn of closeBtns) {
-            closeBtn.onclick = function() {
-                loginModal.style.display = "none";
-                registerModal.style.display = "none";
-            }
-        }
-
-        window.onclick = function(event) {
-            if (event.target == loginModal) {
-                loginModal.style.display = "none";
-            }
-            if (event.target == registerModal) {
-                registerModal.style.display = "none";
-            }
-        }
-
-        menuToggle.onclick = function() {
-            menu.classList.toggle("show");
-        }
-
-        document.getElementById("loginForm").onsubmit = function(e) {
-            e.preventDefault();
-            alert("Giriş başarılı!");
-            loginModal.style.display = "none";
-        }
-
-        document.getElementById("registerForm").onsubmit = function(e) {
-            e.preventDefault();
-            alert("Kayıt başarılı!");
-            registerModal.style.display = "none";
-        }
-
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                menu.classList.remove('show');
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // ScrollReveal animasyonları
+        ScrollReveal().reveal('.card', {
+            delay: 200,
+            distance: '50px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.hero-content', {
+            delay: 200,
+            distance: '50px',
+            origin: 'bottom'
+        });
+
+        // Form gönderimi sırasında loading
+        const form = document.querySelector('form');
+        const loader = document.getElementById('loader');
+
+        form.addEventListener('submit', () => {
+            loader.style.display = 'block';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2000);
         });
     </script>
 </body>
