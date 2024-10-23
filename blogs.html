@@ -117,6 +117,10 @@
             transform: translateY(-2px);
         }
 
+        .category-btn.active {
+            background: var(--accent-color);
+        }
+
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -128,8 +132,15 @@
             background: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .blog-post.hide {
+            opacity: 0;
+            transform: scale(0.8);
         }
 
         .blog-post:hover {
@@ -149,11 +160,24 @@
         .post-meta {
             font-size: 0.9rem;
             color: var(--text-color);
-            opacity: 0.8;
             margin-bottom: 10px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            align-items: center;
+        }
+
+        .post-meta .author,
+        .post-meta .date {
+            opacity: 0.8;
+        }
+
+        .post-meta .category {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
         }
 
         .post-title {
@@ -265,7 +289,7 @@
         <h1 class="page-title">Tüm Yazılar</h1>
         
         <div class="categories">
-            <button class="category-btn">Tümü</button>
+            <button class="category-btn active">Tümü</button>
             <button class="category-btn">Sinema</button>
             <button class="category-btn">Siyaset</button>
             <button class="category-btn">Kültür</button>
@@ -276,14 +300,13 @@
         </a>
 
         <div class="blog-grid">
-            <!-- Örnek Blog Yazıları -->
             <article class="blog-post">
                 <img src="https://picsum.photos/300/200" alt="Blog Post" class="post-image">
                 <div class="post-content">
                     <div class="post-meta">
-                        <span>Yazar: Ahmet Yılmaz</span>
-                        <span>15 Mart 2024</span>
-                        <span>Sinema</span>
+                        <span class="author">Yazar: Ahmet Yılmaz</span>
+                        <span class="date">15 Mart 2024</span>
+                        <span class="category">Sinema</span>
                     </div>
                     <h2 class="post-title">Modern Sinemanın Geleceği</h2>
                     <p class="post-excerpt">
@@ -297,9 +320,9 @@
                 <img src="https://picsum.photos/300/201" alt="Blog Post" class="post-image">
                 <div class="post-content">
                     <div class="post-meta">
-                        <span>Yazar: Zeynep Kaya</span>
-                        <span>14 Mart 2024</span>
-                        <span>Siyaset</span>
+                        <span class="author">Yazar: Zeynep Kaya</span>
+                        <span class="date">14 Mart 2024</span>
+                        <span class="category">Siyaset</span>
                     </div>
                     <h2 class="post-title">Küresel Siyasetin Dinamikleri</h2>
                     <p class="post-excerpt">
@@ -313,9 +336,9 @@
                 <img src="https://picsum.photos/300/202" alt="Blog Post" class="post-image">
                 <div class="post-content">
                     <div class="post-meta">
-                        <span>Yazar: Mehmet Demir</span>
-                        <span>13 Mart 2024</span>
-                        <span>Kültür</span>
+                        <span class="author">Yazar: Mehmet Demir</span>
+                        <span class="date">13 Mart 2024</span>
+                        <span class="category">Kültür</span>
                     </div>
                     <h2 class="post-title">Sanatın Toplumsal Rolü</h2>
                     <p class="post-excerpt">
@@ -344,13 +367,45 @@
             menu.classList.toggle('show');
         });
 
-        // Kategori filtreleme (örnek)
+        // Kategori filtreleme
         const categoryButtons = document.querySelectorAll('.category-btn');
+        const blogPosts = document.querySelectorAll('.blog-post');
+
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
-                categoryButtons.forEach(btn => btn.style.background = 'var(--primary-color)');
-                button.style.background = 'var(--accent-color)';
+                // Aktif kategori butonunu güncelle
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Seçilen kategoriyi al
+                const selectedCategory = button.textContent.toLowerCase();
+
+                // Her blog postunu kontrol et
+                blogPosts.forEach(post => {
+                    const postCategory = post.querySelector('.post-meta .category').textContent.toLowerCase();
+                    
+                    post.classList.add('hide');
+                    
+                    setTimeout(() => {
+                        if (selectedCategory === 'tümü') {
+                            post.style.display = 'block';
+                            setTimeout(() => post.classList.remove('hide'), 50);
+                        } else {
+                            if (postCategory === selectedCategory) {
+                                post.style.display = 'block';
+                                setTimeout(() => post.classList.remove('hide'), 50);
+                            } else {
+                                post.style.display = 'none';
+                            }
+                        }
+                    }, 300);
+                });
             });
+        });
+
+        // Sayfa yüklendiğinde tüm postları göster
+        window.addEventListener('load', () => {
+            blogPosts.forEach(post => post.classList.remove('hide'));
         });
     </script>
 </body>
