@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazı Gönder - SS Kulübü</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .write-form {
+            max-width: 800px;
+            margin: 120px auto 50px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .write-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .form-group textarea {
+            height: 300px;
+            resize: vertical;
+        }
+
+        .form-group input[type="file"] {
+            padding: 8px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .guidelines {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .guidelines h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .guidelines ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">SS Kulübü</a>
+                <ul id="menu">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="blogs.html">Tüm Yazılar</a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Write Form Section -->
+    <section class="write-section">
+        <div class="container">
+            <form class="write-form">
+                <h2>Yazı Gönder</h2>
+                
+                <div class="form-group">
+                    <label for="title">Başlık</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Kategori</label>
+                    <select id="category" name="category" required>
+                        <option value="">Kategori Seçin</option>
+                        <option value="cinema">Sinema</option>
+                        <option value="politics">Siyaset</option>
+                        <option value="analysis">Analiz</option>
+                        <option value="review">İnceleme</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">İçerik</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Kapak Görseli</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+
+                <button type="submit" class="submit-btn">Yazıyı Gönder</button>
+
+                <div class="guidelines">
+                    <h3>Yazı Gönderim Kuralları</h3>
+                    <ul>
+                        <li>Yazınız özgün olmalıdır.</li>
+                        <li>En az 500 kelime olmalıdır.</li>
+                        <li>Görseller telif hakkı içermemelidir.</li>
+                        <li>Yazım kurallarına dikkat edilmelidir.</li>
+                        <li>Hakaret içeren ifadeler kullanılmamalıdır.</li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SS Kulübü</h3>
+                    <p>Sanatın ve toplumun kesiştiği noktada buluşalım.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sinema ve Siyaset Kulübü. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // Form Submit
+        const form = document.querySelector('.write-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.textContent = 'Gönderiliyor...';
+            submitBtn.disabled = true;
+
+            // Simüle edilmiş form gönderimi
+            setTimeout(() => {
+                submitBtn.textContent = 'Gönderildi!';
+                submitBtn.style.backgroundColor = '#00b894';
+                
+                setTimeout(() => {
+                    alert('Yazınız başarıyla gönderildi! İncelendikten sonra yayınlanacaktır.');
+                    form.reset();
+                    submitBtn.textContent = 'Yazıyı Gönder';
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.disabled = false;
+                }, 1000);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
