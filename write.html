@@ -472,11 +472,9 @@
                     <div class="tonearm"></div>
                 </div>
             </div>
-                <iframe id="music" 
-                src="https://www.youtube.com/embed/4BjH_pJ2p-w?enablejsapi=1" 
-                style="display: none"
-                allow="autoplay">
-            </iframe>
+                <audio id="music" style="display: none">
+                    <source src="uchurel.mp3" type="audio/mpeg">
+                </audio>
         </div>
 
         <!-- Form -->
@@ -541,56 +539,35 @@
         const recordPlayer = document.querySelector('.record-player-container');
         const record = document.querySelector('.record');
         const tonearm = document.querySelector('.tonearm');
-        const player = document.getElementById('music');
+        const audio = document.getElementById('music');
         let isPlaying = false;
-        
-        // YouTube API'sini yükle
-        let tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        
-        let youtubePlayer;
-        
-        function onYouTubeIframeAPIReady() {
-            youtubePlayer = new YT.Player('music', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-        
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.ENDED) {
-                record.classList.remove('playing');
-                tonearm.classList.remove('playing');
-                isPlaying = false;
-            }
-        }
         
         recordPlayer.addEventListener('click', () => {
             if (!isPlaying) {
                 // Start playing
                 record.classList.add('playing');
                 tonearm.classList.add('playing');
-                youtubePlayer.playVideo();
+                audio.play();
                 isPlaying = true;
             } else {
                 // Stop playing
                 record.classList.remove('playing');
                 tonearm.classList.remove('playing');
-                youtubePlayer.pauseVideo();
-                youtubePlayer.seekTo(0);
+                audio.pause();
+                audio.currentTime = 0;
                 isPlaying = false;
             }
         });
-
+        
         // When music ends
         audio.addEventListener('ended', () => {
             record.classList.remove('playing');
             tonearm.classList.remove('playing');
             isPlaying = false;
         });
+
+
+
 
         // Form Submit
         const form = document.querySelector('.write-form');
