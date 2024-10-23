@@ -4,22 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yazı Gönder - SS Kulübü</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #ffeaa7;
+            --text-color: #2d3436;
+            --bg-color: #ffffff;
+            --accent-color: #fd79a8;
+            --card-bg: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 100px 0 30px;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Plak çalar stilleri */
+        .record-player-container {
+            width: 400px;
+            height: 300px;
+            margin: 50px auto;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .record-player {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: rotateX(45deg) rotateZ(-45deg);
+            transform-style: preserve-3d;
+        }
+
+        .turntable {
+            width: 300px;
+            height: 300px;
+            background: #333;
+            border-radius: 10px;
+            position: absolute;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .record {
+            width: 250px;
+            height: 250px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .record.playing {
+            animation: spin 2s linear infinite;
+        }
+
+        .record::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .tonearm {
+            width: 150px;
+            height: 8px;
+            background: #95a5a6;
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform-origin: right;
+            transform: rotate(-30deg);
+            transition: transform 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .tonearm::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #7f8c8d;
+            border-radius: 50%;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .tonearm.playing {
+            transform: rotate(-20deg);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Form stilleri */
         .write-form {
             max-width: 800px;
-            margin: 120px auto 50px;
+            margin: 30px auto;
             padding: 30px;
             background: var(--card-bg);
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .write-form h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--text-color);
         }
 
         .form-group {
@@ -30,6 +195,7 @@
             display: block;
             margin-bottom: 8px;
             color: var(--text-color);
+            font-weight: 600;
         }
 
         .form-group input,
@@ -37,10 +203,11 @@
         .form-group select {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--primary-color);
             border-radius: 5px;
             background: var(--bg-color);
             color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
         }
 
         .form-group textarea {
@@ -48,36 +215,35 @@
             resize: vertical;
         }
 
-        .form-group input[type="file"] {
-            padding: 8px;
-        }
-
         .submit-btn {
-            background: var(--primary-color);
-            color: #fff;
+            background: var(--accent-color);
+            color: white;
             padding: 12px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-            transition: background 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .submit-btn:hover {
-            background: var(--secondary-color);
+            background: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         .guidelines {
             margin-top: 30px;
             padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 10px;
         }
 
         .guidelines h3 {
+            color: var(--primary-color);
             margin-bottom: 15px;
-            color: var(--text-color);
+            font-family: 'Playfair Display', serif;
         }
 
         .guidelines ul {
@@ -86,180 +252,155 @@
             color: var(--text-color);
         }
 
-        /* Plak Çalar Stilleri */
-        .record-player {
-            width: 300px;
-            height: 300px;
-            margin: 50px auto;
-            position: relative;
-            cursor: pointer;
+        footer {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 50px;
         }
 
-        .record-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .record {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 50%;
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: none;
-        }
-
-        .record.playing {
-            animation: spin 2s linear infinite;
-        }
-
-        .label {
-            width: 40%;
-            height: 40%;
-            background: #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .tonearm {
-            width: 100px;
-            height: 15px;
-            background: #95a5a6;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform-origin: right center;
-            transform: rotate(-40deg);
-            transition: transform 0.5s ease;
-        }
-
-        .tonearm::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #7f8c8d;
-            border-radius: 50%;
-            right: -10px;
-            top: -2.5px;
-        }
-
-        .tonearm.playing {
-            transform: rotate(-25deg);
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                text-align: center;
             }
-            to {
-                transform: rotate(360deg);
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 1rem 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                color: var(--bg-color);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .record-player-container {
+                width: 300px;
+                height: 225px;
+            }
+
+            .turntable {
+                width: 225px;
+                height: 225px;
+            }
+
+            .record {
+                width: 187.5px;
+                height: 187.5px;
+                top: 18.75px;
+                left: 18.75px;
+            }
+
+            .record::after {
+                width: 75px;
+                height: 75px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <nav>
-            <a href="index.html" class="logo">SS Kulübü</a>
-            <ul id="menu">
-                <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="index.html#cinema">Sinema</a></li>
-                <li><a href="index.html#politics">Siyaset</a></li>
-                <li><a href="index.html#events">Etkinlikler</a></li>
-                <li><a href="blogs.html">Tüm Yazılar</a></li>
-                <li><a href="index.html#contact">İletişim</a></li>
-            </ul>
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">SS Kulübü</a>
+                <ul id="menu">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="blogs.html">Tüm Yazılar</a></li>
+                    <li><a href="index.html#cinema">Sinema</a></li>
+                    <li><a href="index.html#politics">Siyaset</a></li>
+                    <li><a href="index.html#events">Etkinlikler</a></li>
+                    <li><a href="index.html#contact">İletişim</a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <!-- Write Form Section -->
-    <section class="write-section">
-        <div class="container">
-            <!-- Plak Çalar -->
+    <main class="container">
+        <h1 class="page-title">Yazı Gönder</h1>
+
+        <!-- Plak Çalar -->
+        <div class="record-player-container">
             <div class="record-player">
-                <div class="record-container">
+                <div class="turntable">
                     <div class="record">
                         <div class="label"></div>
                     </div>
                     <div class="tonearm"></div>
                 </div>
-                <audio id="music" src="path/to/your/music.mp3"></audio>
+            </div>
+            <audio id="music" src="path/to/your/music.mp3"></audio>
+        </div>
+
+        <!-- Form -->
+        <form class="write-form">
+            <div class="form-group">
+                <label for="title">Başlık</label>
+                <input type="text" id="title" name="title" required>
             </div>
 
-            <form class="write-form">
-                <h2>Yazı Gönder</h2>
-                
-                <div class="form-group">
-                    <label for="title">Başlık</label>
-                    <input type="text" id="title" name="title" required>
-                </div>
+            <div class="form-group">
+                <label for="category">Kategori</label>
+                <select id="category" name="category" required>
+                    <option value="">Kategori Seçin</option>
+                    <option value="cinema">Sinema</option>
+                    <option value="politics">Siyaset</option>
+                    <option value="analysis">Analiz</option>
+                    <option value="review">İnceleme</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="category">Kategori</label>
-                    <select id="category" name="category" required>
-                        <option value="">Kategori Seçin</option>
-                        <option value="cinema">Sinema</option>
-                        <option value="politics">Siyaset</option>
-                        <option value="analysis">Analiz</option>
-                        <option value="review">İnceleme</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="content">İçerik</label>
+                <textarea id="content" name="content" required></textarea>
+            </div>
 
-                <div class="form-group">
-                    <label for="content">İçerik</label>
-                    <textarea id="content" name="content" required></textarea>
-                </div>
+            <div class="form-group">
+                <label for="image">Kapak Görseli</label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
 
-                <div class="form-group">
-                    <label for="image">Kapak Görseli</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                </div>
+            <button type="submit" class="submit-btn">Yazıyı Gönder</button>
 
-                <button type="submit" class="submit-btn">Yazıyı Gönder</button>
+            <div class="guidelines">
+                <h3>Yazı Gönderim Kuralları</h3>
+                <ul>
+                    <li>Yazınız özgün olmalıdır.</li>
+                    <li>En az 500 kelime olmalıdır.</li>
+                    <li>Görseller telif hakkı içermemelidir.</li>
+                    <li>Yazım kurallarına dikkat edilmelidir.</li>
+                    <li>Hakaret içeren ifadeler kullanılmamalıdır.</li>
+                </ul>
+            </div>
+        </form>
+    </main>
 
-                <div class="guidelines">
-                    <h3>Yazı Gönderim Kuralları</h3>
-                    <ul>
-                        <li>Yazınız özgün olmalıdır.</li>
-                        <li>En az 500 kelime olmalıdır.</li>
-                        <li>Görseller telif hakkı içermemelidir.</li>
-                        <li>Yazım kurallarına dikkat edilmelidir.</li>
-                        <li>Hakaret içeren ifadeler kullanılmamalıdır.</li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>SS Kulübü</h3>
-                    <p>Sanatın ve toplumun kesiştiği noktada buluşalım.</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Sinema ve Siyaset Kulübü. Tüm hakları saklıdır.</p>
-            </div>
+            <p>&copy; 2024 Sinema ve Siyaset Kulübü. Tüm hakları saklıdır.</p>
+            <p>Designed by Fatih Emre Aksoy &#x1F5A4;</p>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script>
-        // Mobile Menu Toggle
+        // Mobil menü toggle
         const menuToggle = document.getElementById('menuToggle');
         const menu = document.getElementById('menu');
 
@@ -267,8 +408,8 @@
             menu.classList.toggle('show');
         });
 
-        // Plak Çalar Kontrolü
-        const recordPlayer = document.querySelector('.record-player');
+        // Plak çalar kontrolü
+        const recordPlayer = document.querySelector('.record-player-container');
         const record = document.querySelector('.record');
         const tonearm = document.querySelector('.tonearm');
         const audio = document.getElementById('music');
@@ -298,7 +439,7 @@
             isPlaying = false;
         });
 
-        // Form Submit
+        // Form gönderimi
         const form = document.querySelector('.write-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -307,7 +448,6 @@
             submitBtn.textContent = 'Gönderiliyor...';
             submitBtn.disabled = true;
 
-            // Simüle edilmiş form gönderimi
             setTimeout(() => {
                 submitBtn.textContent = 'Gönderildi!';
                 submitBtn.style.backgroundColor = '#00b894';
