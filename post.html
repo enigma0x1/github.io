@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Yazısı - Sinema ve Siyaset Kulübü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Root ve genel stiller aynı kalacak */
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #ffeaa7;
+            --text-color: #2d3436;
+            --bg-color: #ffffff;
+            --accent-color: #fd79a8;
+            --card-bg: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Header ve nav stilleri aynı */
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px; /* Blog yazısı için daha dar container */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Blog post detay sayfası için özel stiller */
+        .post-container {
+            padding: 120px 0 50px;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .post-category {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Paylaşım butonları */
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            justify-content: center;
+        }
+
+        .share-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .share-button.twitter {
+            background: #1DA1F2;
+        }
+
+        .share-button.facebook {
+            background: #4267B2;
+        }
+
+        .share-button.linkedin {
+            background: #0077b5;
+        }
+
+        /* Önerilen yazılar */
+        .suggested-posts {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-bg);
+        }
+
+        .suggested-posts h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .suggested-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .suggested-post {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .suggested-post:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            .suggested-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header aynı kalacak -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">SS Kulübü</a>
+                <ul id="menu">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="blogs.html">Tüm Yazılar</a></li>
+                    <li><a href="index.html#cinema">Sinema</a></li>
+                    <li><a href="index.html#politics">Siyaset</a></li>
+                    <li><a href="index.html#events">Etkinlikler</a></li>
+                    <li><a href="index.html#contact">İletişim</a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Post İçeriği -->
+    <main class="post-container">
+        <div class="container">
+            <article>
+                <header class="post-header">
+                    <h1 class="post-title">Modern Sinemanın Geleceği</h1>
+                    <div class="post-meta">
+                        <span class="author">Yazar: Ahmet Yılmaz</span>
+                        <span class="date">15 Mart 2024</span>
+                        <span class="post-category">Sinema</span>
+                    </div>
+                </header>
+
+                <img src="https://picsum.photos/800/400" alt="Blog Post" class="post-image">
+
+                <div class="post-content">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+
+                    <h2>Alt Başlık 1</h2>
+                    <p>
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+
+                    <h2>Alt Başlık 2</h2>
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                    </p>
+                </div>
+
+                <!-- Paylaşım Butonları -->
+                <div class="share-buttons">
+                    <button class="share-button twitter">
+                        <i class="fab fa-twitter"></i>
+                        Twitter'da Paylaş
+                    </button>
+                    <button class="share-button facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook'ta Paylaş
+                    </button>
+                    <button class="share-button linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                        LinkedIn'de Paylaş
+                    </button>
+                </div>
+
+                <!-- Önerilen Yazılar -->
+                <div class="suggested-posts">
+                    <h3>Benzer Yazılar</h3>
+                    <div class="suggested-grid">
+                        <a href="#" class="suggested-post">
+                            <h4>Dijital Sinema ve Gelecek</h4>
+                            <p>Teknolojinin sinema üzerindeki etkileri...</p>
+                        </a>
+                        <a href="#" class="suggested-post">
+                            <h4>Klasik Sinemanın İzleri</h4>
+                            <p>Geçmişten günümüze sinema tarihi...</p>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sinema ve Siyaset Kulübü. Tüm hakları saklıdır.</p>
+            <p>Designed by Fatih Emre Aksoy &#x1F5A4;</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobil menü toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // Paylaşım butonları için
+        document.querySelectorAll('.share-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const platform = this.classList[1];
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent(document.title);
+                
+                let shareUrl;
+                switch(platform) {
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                        break;
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                        break;
+                }
+                
+                window.open(shareUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
