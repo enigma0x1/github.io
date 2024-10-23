@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yazı Gönder - SS Kulübü</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         :root {
             --primary-color: #6c5ce7;
@@ -13,6 +14,7 @@
             --bg-color: #ffffff;
             --accent-color: #fd79a8;
             --card-bg: #f0f0f0;
+            --success-color: #00b894;
         }
 
         * {
@@ -87,13 +89,50 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Plak çalar stilleri */
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: top 0.5s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            top: 20px;
+        }
+
+        .notification .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .notification .message {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        /* Record Player Styles */
         .record-player-container {
-            width: 400px;
-            height: 300px;
+            width: 500px;
+            height: 400px;
             margin: 50px auto;
             position: relative;
-            perspective: 1000px;
+            perspective: 1500px;
             cursor: pointer;
         }
 
@@ -106,24 +145,38 @@
         }
 
         .turntable {
-            width: 300px;
-            height: 300px;
-            background: #333;
-            border-radius: 10px;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            border-radius: 20px;
             position: absolute;
             transform-style: preserve-3d;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 20px;
+        }
+
+        .platter {
+            width: 360px;
+            height: 360px;
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .record {
-            width: 250px;
-            height: 250px;
+            width: 340px;
+            height: 340px;
             background: #000;
             border-radius: 50%;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            transform-style: preserve-3d;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: transform 0.5s ease;
         }
 
@@ -131,45 +184,91 @@
             animation: spin 2s linear infinite;
         }
 
-        .record::after {
+        .record::before {
             content: '';
-            width: 100px;
-            height: 100px;
-            background: var(--accent-color);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-radial-gradient(
+                circle at center,
+                transparent 0,
+                transparent 5px,
+                rgba(255,255,255,0.1) 5px,
+                rgba(255,255,255,0.1) 7px
+            );
+            border-radius: 50%;
+        }
+
+        .label {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, var(--accent-color), #e84393);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .spindle {
+            width: 20px;
+            height: 20px;
+            background: silver;
             border-radius: 50%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            border: 4px solid #333;
+            z-index: 2;
         }
 
         .tonearm {
-            width: 150px;
-            height: 8px;
-            background: #95a5a6;
+            width: 200px;
+            height: 12px;
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
             position: absolute;
-            right: -30px;
+            right: -40px;
             top: 50%;
             transform-origin: right;
             transform: rotate(-30deg);
             transition: transform 0.5s ease;
-            border-radius: 4px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .tonearm.playing {
+            transform: rotate(-20deg);
+        }
+
+        .tonearm::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            border-radius: 50%;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .tonearm::after {
             content: '';
             position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #7f8c8d;
+            width: 20px;
+            height: 20px;
+            background: silver;
             border-radius: 50%;
-            left: 0;
+            left: 10px;
             top: 50%;
             transform: translateY(-50%);
-        }
-
-        .tonearm.playing {
-            transform: rotate(-20deg);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
         }
 
         @keyframes spin {
@@ -177,7 +276,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Form stilleri */
+        /* Form Styles */
         .write-form {
             max-width: 800px;
             margin: 30px auto;
@@ -290,29 +389,52 @@
 
             .record-player-container {
                 width: 300px;
-                height: 225px;
+                height: 240px;
             }
 
             .turntable {
-                width: 225px;
-                height: 225px;
+                width: 240px;
+                height: 240px;
+            }
+
+            .platter {
+                width: 216px;
+                height: 216px;
+                top: 12px;
+                left: 12px;
             }
 
             .record {
-                width: 187.5px;
-                height: 187.5px;
-                top: 18.75px;
-                left: 18.75px;
+                width: 204px;
+                height: 204px;
             }
 
-            .record::after {
-                width: 75px;
-                height: 75px;
+            .label {
+                width: 72px;
+                height: 72px;
+                font-size: 0.6rem;
+            }
+
+            .tonearm {
+                width: 120px;
+                height: 8px;
+                right: -24px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="message">
+            Yazınız başarıyla gönderildi! İncelendikten sonra yayınlanacaktır.
+        </div>
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="container">
             <nav>
@@ -335,12 +457,17 @@
     <main class="container">
         <h1 class="page-title">Yazı Gönder</h1>
 
-        <!-- Plak Çalar -->
+        <!-- Record Player -->
         <div class="record-player-container">
             <div class="record-player">
                 <div class="turntable">
-                    <div class="record">
-                        <div class="label"></div>
+                    <div class="platter">
+                        <div class="record">
+                            <div class="spindle"></div>
+                            <div class="label">
+                                SS Kulübü<br>45 RPM
+                            </div>
+                        </div>
                     </div>
                     <div class="tonearm"></div>
                 </div>
@@ -398,9 +525,8 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script>
-        // Mobil menü toggle
+        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const menu = document.getElementById('menu');
 
@@ -408,7 +534,7 @@
             menu.classList.toggle('show');
         });
 
-        // Plak çalar kontrolü
+        // Record Player Control
         const recordPlayer = document.querySelector('.record-player-container');
         const record = document.querySelector('.record');
         const tonearm = document.querySelector('.tonearm');
@@ -417,13 +543,13 @@
 
         recordPlayer.addEventListener('click', () => {
             if (!isPlaying) {
-                // Başlat
+                // Start playing
                 record.classList.add('playing');
                 tonearm.classList.add('playing');
                 audio.play();
                 isPlaying = true;
             } else {
-                // Durdur
+                // Stop playing
                 record.classList.remove('playing');
                 tonearm.classList.remove('playing');
                 audio.pause();
@@ -432,15 +558,17 @@
             }
         });
 
-        // Müzik bittiğinde plağı durdur
+        // When music ends
         audio.addEventListener('ended', () => {
             record.classList.remove('playing');
             tonearm.classList.remove('playing');
             isPlaying = false;
         });
 
-        // Form gönderimi
+        // Form Submit
         const form = document.querySelector('.write-form');
+        const notification = document.getElementById('notification');
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -448,16 +576,21 @@
             submitBtn.textContent = 'Gönderiliyor...';
             submitBtn.disabled = true;
 
+            // Simulated form submission
             setTimeout(() => {
-                submitBtn.textContent = 'Gönderildi!';
-                submitBtn.style.backgroundColor = '#00b894';
+                submitBtn.style.backgroundColor = 'var(--success-color)';
+                notification.classList.add('show');
                 
                 setTimeout(() => {
-                    alert('Yazınız başarıyla gönderildi! İncelendikten sonra yayınlanacaktır.');
                     form.reset();
                     submitBtn.textContent = 'Yazıyı Gönder';
                     submitBtn.style.backgroundColor = '';
                     submitBtn.disabled = false;
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 3000);
                 }, 1000);
             }, 2000);
         });
