@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Mevcut root değişkenleriniz */
         :root {
             --primary-color: #6c5ce7;
             --secondary-color: #ffeaa7;
@@ -15,16 +14,20 @@
             --bg-color: #ffffff;
             --accent-color: #fd79a8;
             --card-bg: #f0f0f0;
+            --klapet-color: #000000;
+            --microphone-color: #00b894;
+            --divider-color: #e0e0e0;
             --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
+            --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+            --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
         }
-
-        /* Reset ve genel stiller */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
@@ -32,7 +35,7 @@
             background-color: var(--bg-color);
         }
 
-        /* Header stilleri index.html ile aynı */
+        /* Header */
         header {
             background: rgba(108, 92, 231, 0.98);
             backdrop-filter: blur(10px);
@@ -41,6 +44,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .container {
@@ -50,44 +54,92 @@
             padding: 0 20px;
         }
 
-        /* Blog post container */
-        .post-container {
-            padding: 120px 0 50px;
-            max-width: 800px;
-            margin: 0 auto;
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Blog post başlık ve meta bilgileri */
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Post Header */
         .post-header {
+            background: var(--primary-gradient);
+            padding: 8rem 0 4rem;
+            color: white;
             text-align: center;
             margin-bottom: 3rem;
-            padding: 2rem;
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 15px;
         }
 
         .post-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             font-family: 'Playfair Display', serif;
+            max-width: 800px;
+            margin: 0 auto 1rem;
         }
 
         .post-meta {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin-bottom: 1rem;
+            margin-top: 1rem;
+            font-size: 1.1rem;
         }
 
-        /* Blog içeriği */
+        /* Post Content */
+        .post-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+        }
+
         .post-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            padding: 2rem;
             background: white;
+            padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
         .post-content p {
@@ -98,9 +150,10 @@
             color: var(--primary-color);
             margin: 2rem 0 1rem;
             font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
         }
 
-        /* Paylaşım butonları */
+        /* Share Buttons */
         .share-buttons {
             display: flex;
             gap: 1rem;
@@ -119,14 +172,14 @@
             align-items: center;
             gap: 0.5rem;
             font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
         }
 
         .share-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
-        /* Footer stilleri index.html ile aynı */
+                /* Footer */
         footer {
             background: var(--primary-gradient);
             color: var(--bg-color);
@@ -201,10 +254,39 @@
             text-align: center;
         }
 
-        /* Responsive tasarım */
+        /* Responsive */
         @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-gradient);
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+                color: var(--bg-color);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
             .post-title {
                 font-size: 2rem;
+                padding: 0 1rem;
             }
 
             .post-meta {
@@ -245,33 +327,34 @@
         </div>
     </header>
 
-    <!-- Blog Post İçeriği -->
-    <main class="post-container">
-        <article>
-            <header class="post-header">
-                <h1 class="post-title">Modern Sinemanın Geleceği</h1>
-                <div class="post-meta">
-                    <span><i class="fas fa-user"></i> Ahmet Yılmaz</span>
-                    <span><i class="fas fa-calendar"></i> 15 Mart 2024</span>
-                    <span><i class="fas fa-tag"></i> Sinema</span>
-                </div>
-            </header>
-
-            <div class="post-content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-
-                <h2>Alt Başlık 1</h2>
-                <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-
-                <h2>Alt Başlık 2</h2>
-                <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                </p>
+    <!-- Post Header -->
+    <div class="post-header">
+        <div class="container">
+            <h1 class="post-title">Modern Sinemanın Geleceği</h1>
+            <div class="post-meta">
+                <span><i class="fas fa-user"></i> Ahmet Yılmaz</span>
+                <span><i class="fas fa-calendar"></i> 15 Mart 2024</span>
+                <span><i class="fas fa-tag"></i> Sinema</span>
             </div>
+        </div>
+    </div>
+
+    <!-- Post Content -->
+    <main class="post-container">
+        <article class="post-content">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+
+            <h2>Alt Başlık 1</h2>
+            <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+            <h2>Alt Başlık 2</h2>
+            <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            </p>
 
             <div class="share-buttons">
                 <button class="share-button" style="background: #1DA1F2;">
@@ -304,10 +387,10 @@
                 <div class="footer-section">
                     <h3>Hızlı Linkler</h3>
                     <ul>
-                        <li><a href="#home">Ana Sayfa</a></li>
-                        <li><a href="#cinema">Sinema</a></li>
-                        <li><a href="#politics">Siyaset</a></li>
-                        <li><a href="#events">Etkinlikler</a></li>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="index.html#cinema">Sinema</a></li>
+                        <li><a href="index.html#politics">Siyaset</a></li>
+                        <li><a href="index.html#events">Etkinlikler</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -330,7 +413,7 @@
             menu.classList.toggle('show');
         });
 
-        // Paylaşım butonları için
+        // Paylaşım butonları
         document.querySelectorAll('.share-button').forEach(button => {
             button.addEventListener('click', function() {
                 const platform = this.querySelector('i').classList[1].split('-')[1];
