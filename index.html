@@ -206,27 +206,55 @@
         }
         
         .klapet {
-            left: 10%;
+            left: -100px; /* Başlangıçta ekranın dışında */
             top: 30%;
-            animation: float 6s ease-in-out infinite;
+            animation: slideFromLeft 2s forwards, upDown 3s infinite;
         }
         
         .microphone {
-            right: 10%;
+            right: -100px; /* Başlangıçta ekranın dışında */
             bottom: 30%;
-            animation: float 6s ease-in-out infinite reverse;
+            animation: slideFromRight 2s forwards, rotate 3s infinite;
         }
         
-        /* Float animasyonu */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
+        /* Animasyonlar */
+        @keyframes slideFromLeft {
+            to {
+                left: 10%;
+            }
+        }
+        
+        @keyframes slideFromRight {
+            to {
+                right: 10%;
+            }
+        }
+        
+        @keyframes upDown {
+            0%, 100% {
+                transform: translateY(0);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-30px);
+            }
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(-20deg);
+            }
+            50% {
+                transform: rotate(20deg);
             }
             100% {
-                transform: translateY(0px);
+                transform: rotate(-20deg);
+            }
+        }
+        
+        /* Mobil cihazlar için responsive ayarlar */
+        @media (max-width: 768px) {
+            .klapet, .microphone {
+                font-size: 4rem;
             }
         }
         
@@ -695,32 +723,6 @@
         <i class="fas fa-film klapet"></i>
         <i class="fas fa-microphone-alt microphone"></i>
     </section>
-
-    <!-- Event Countdown -->
-    <section id="countdown">
-        <div class="container">
-            <h2>Yaklaşan Etkinlik</h2>
-            <div class="event-countdown">
-                <div class="countdown-item">
-                    <span class="days">00</span>
-                    <span>Gün</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="hours">00</span>
-                    <span>Saat</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="minutes">00</span>
-                    <span>Dakika</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="seconds">00</span>
-                    <span>Saniye</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Cinema Section -->
     <section id="cinema">
         <div class="container">
