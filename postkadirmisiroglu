@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Yazısı - Sinema ve Siyaset Kulübü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #ffeaa7;
+            --text-color: #2d3436;
+            --bg-color: #ffffff;
+            --accent-color: #fd79a8;
+            --card-bg: #f0f0f0;
+            --klapet-color: #000000;
+            --microphone-color: #00b894;
+            --divider-color: #e0e0e0;
+            --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
+            --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+            --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Header */
+        header {
+            background: rgba(108, 92, 231, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Post Header */
+        .post-header {
+            background: var(--primary-gradient);
+            padding: 8rem 0 4rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Post Content */
+        .post-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+        }
+
+        .post-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        /* Share Buttons */
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            justify-content: center;
+        }
+
+        .share-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+                /* Footer */
+        footer {
+            background: var(--primary-gradient);
+            color: var(--bg-color);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: 0.3s;
+            gap: 0.5rem;
+        }
+
+        .social-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-gradient);
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+                color: var(--bg-color);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .post-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .share-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">SS Kulübü</a>
+                <ul id="menu">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="blogs.html">Tüm Yazılar</a></li>
+                    <li><a href="index.html#cinema">Sinema</a></li>
+                    <li><a href="index.html#politics">Siyaset</a></li>
+                    <li><a href="index.html#events">Etkinlikler</a></li>
+                    <li><a href="index.html#contact">İletişim</a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Header -->
+    <div class="post-header">
+        <div class="container">
+            <h1 class="post-title">      Sinema Denilen Melanet: Gaflet ve Dalaletin Resimli Şekli</h1>
+            <div class="post-meta">
+                <span><i class="fas fa-user"></i> AI Kadir Mısıroğlu</span>
+                <span><i class="fas fa-calendar"></i> 23 Ekim 2024</span>
+                <span><i class="fas fa-tag"></i> Sinema</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Content -->
+    <main class="post-container">
+        <article class="post-content">
+            <p>
+            Muhterem kardeşlerim!
+
+Evvela şunu söylemek isterim ki, bugün "sinema" dedikleri şey, aslında ümmet-i Muhammed'i gaflete düşürmek için icat edilmiş bir fitneden başka bir şey değildir. Bakınız, tarihimizde böyle bir şey var mı? Ecdadımız böyle şeylerle meşgul olmuş mu? Hayır! Peki ne oldu da biz bu melanetin peşine düştük?
+
+Efendim, diyorlar ki "sanat". Ne sanatı yahu? Osmanlı'da sanat vardı elhamdülillah. Hat vardı, tezhip vardı, ebru vardı. Bunların hepsi İslam medeniyetinin özünden neşet eden güzelliklerdi. Peki bu sinema denilen şey nereden çıktı? Tabii ki Frenk icadı!
+
+Bakın size bir hakikat söyleyeyim: Edison denen zındık, bu aleti icat ederken güya "eğlence" için yaptım diyor. Hâşâ! Asıl maksadı Müslümanların zihnini bulandırmak, ahlakını bozmaktır. Nitekim bugün İslam âleminin hali ortada... Gençler "film" diye bir şeyin karşısına geçip saatlerce oturuyorlar. Peki ne oluyor? Zihinler uyuşuyor, kalpler katılaşıyor.
+
+Hele bir de "Türk sineması" diye bir şey uydurdular. Güya bizim değerlerimizi anlatacaklar! Yahu bizim değerlerimiz Buhari'de var, Müslim'de var. Sen bunları bırak, git Hollywood'dan öğrendiğin şeyleri millete göster, sonra da "sanat yapıyorum" de! Bu kadar basit...
+
+Şimdi bazıları diyecek ki "Hocam ama eğitici filmler de var." Kardeşim, sen hiç Fatih Sultan Mehmet Han'ın film seyrettiğini duydun mu? Ya da İmam-ı Azam hazretleri sinema salonuna mı gidiyordu? Bu nasıl bir gaflettir yarabbi!
+
+Velhasılıkelam, bu sinema denilen melanet, ümmeti ifsat etmek için kullanılan en büyük silahlardan biridir. Bakın dikkat edin, her şey gözle başlar. Gözünüzü harama açarsanız, kalbiniz de ona meyleder. Bugün "film" diye gösterilen şeylerin yüzde doksanı ya haramdır ya da harama götürür.
+
+Peki ne yapacağız? Çok basit: Evvela bu işin bir fitne olduğunu anlayacağız. Sonra da evlatlarımızı, torunlarımızı bu fitneden koruyacağız. Onlara ecdadımızın hakiki kıssalarını anlatacağız. Tarihimizi, değerlerimizi öğreteceğiz.
+
+Bazıları "çağa ayak uydurmak lazım" diyorlar. Hayır efendim! Biz çağa ayak uydurmayacağız, çağı İslam'a uyduracağız. Yoksa bu gidiş nereye varır? Bugün sinema, yarın başka bir fitne...
+
+Ve nihayetinde şunu da söyleyeyim ki, bu sözlerim bazılarına ağır gelecektir. Varsın gelsin! Biz hakikati söylemekle mükellefiz. "İnsanlar hoşlanmasa da sen doğruyu söyle" buyuruyor Cenab-ı Hak!
+
+Allah-u Teâlâ hepimizi gaflet ve dalaletten muhafaza eylesin. Amin!
+
+Not: Bu yazı, merhum Kadir Mısıroğlu'nun üslubunu taklit ederek yazılmış, edebi bir çalışmadır.
+            </p>
+
+            <div class="share-buttons">
+                <button class="share-button" style="background: #1DA1F2;">
+                    <i class="fab fa-twitter"></i> Twitter'da Paylaş
+                </button>
+                <button class="share-button" style="background: #4267B2;">
+                    <i class="fab fa-facebook-f"></i> Facebook'ta Paylaş
+                </button>
+                <button class="share-button" style="background: #0077b5;">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn'de Paylaş
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SS Kulübü</h3>
+                    <p>Sanatın ve toplumun kesiştiği noktada buluşalım.</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/sinemavesiyaset" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                            <span>@sinemavesiyaset</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="index.html#cinema">Sinema</a></li>
+                        <li><a href="index.html#politics">Siyaset</a></li>
+                        <li><a href="index.html#events">Etkinlikler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <p><i class="fas fa-envelope"></i> info@sskulubu.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Designed by Fatih Emre Aksoy &#x1F5A4;</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobil menü toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // Paylaşım butonları
+        document.querySelectorAll('.share-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const platform = this.querySelector('i').classList[1].split('-')[1];
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent(document.title);
+                
+                let shareUrl;
+                switch(platform) {
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                        break;
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                        break;
+                }
+                
+                window.open(shareUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
