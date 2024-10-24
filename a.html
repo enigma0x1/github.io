@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IndustryHub - B2B Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,29 +14,78 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             min-height: 100vh;
-            background: #1a1a2e;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
+            background: #0f0c29;
+            background: linear-gradient(135deg, #24243e, #302b63, #0f0c29);
+            color: white;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .header {
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b649);
+            animation: rotate 20s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #a7a7a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Logo */
         .logo-container {
             margin-bottom: 20px;
+            padding: 20px;
         }
 
         .logo {
@@ -59,6 +109,11 @@
             justify-content: center;
             font-size: 24px;
             transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(225deg);
         }
 
         .logo-text {
@@ -67,11 +122,44 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Portal Grid */
         .portal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px;
             padding: 20px;
+            margin-top: 40px;
         }
 
         .portal-card {
@@ -83,10 +171,11 @@
             transition: all 0.4s ease;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
         }
 
         .portal-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px) rotateX(5deg);
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -96,7 +185,20 @@
             height: 200px;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.3) 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .portal-card:nth-child(1) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=800');
+        }
+
+        .portal-card:nth-child(2) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?auto=format&fit=crop&w=800');
+        }
+
+        .portal-card:nth-child(3) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800');
         }
 
         .portal-image::before {
@@ -184,7 +286,46 @@
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
 
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
             .portal-grid {
                 grid-template-columns: 1fr;
             }
@@ -198,20 +339,67 @@
                 height: 40px;
                 font-size: 20px;
             }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .portal-card {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .portal-card:nth-child(1) { animation-delay: 0.2s; }
+        .portal-card:nth-child(2) { animation-delay: 0.4s; }
+        .portal-card:nth-child(3) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo">
-                    <div class="logo-icon">IH</div>
-                    <span class="logo-text">IndustryHub</span>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <div class="logo-icon">IH</div>
+                        <span class="logo-text">IndustryHub</span>
+                    </div>
                 </div>
+                <h1 class="hero-title">Endüstrinin Geleceği Burada</h1>
+                <p class="hero-subtitle">B2B çözümlerle işinizi büyütün</p>
             </div>
-        </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Aktif Kullanıcı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5M+</div>
+                <div class="stat-label">İşlem Hacmi</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Ülke</div>
+            </div>
+        </section>
         
+        <!-- Portal Grid -->
         <div class="portal-grid">
             <!-- Üretici Portalı -->
             <div class="portal-card">
@@ -258,6 +446,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2024 IndustryHub. Tüm hakları saklıdır.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
