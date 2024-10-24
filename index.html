@@ -7,38 +7,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Tema renkleri */
-:root {
-    /* Yeni default tema (lacivert tonları) */
-    --primary-color: #1a237e;
-    --secondary-color: #2196f3;
-    --text-color: #1a237e;
-    --bg-color: #ffffff;
-    --accent-color: #1565c0;
-    --card-bg: #f5f5f5;
-    --klapet-color: #1a237e;
-    --microphone-color: #1565c0;
-    --divider-color: #e3f2fd;
-    --primary-gradient: linear-gradient(45deg, #1a237e, #1565c0);
-    --card-gradient: linear-gradient(to right bottom, #ffffff, #e3f2fd);
-    --hover-gradient: linear-gradient(45deg, #1565c0, #2196f3);
-}
+        :root {
+            /* Default tema (lacivert tonları) */
+            --primary-color: #1a237e;
+            --secondary-color: #2196f3;
+            --text-color: #1a237e;
+            --bg-color: #ffffff;
+            --accent-color: #1565c0;
+            --card-bg: #f5f5f5;
+            --klapet-color: #1a237e;
+            --microphone-color: #1565c0;
+            --divider-color: #e3f2fd;
+            --primary-gradient: linear-gradient(45deg, #1a237e, #1565c0);
+            --card-gradient: linear-gradient(to right bottom, #ffffff, #e3f2fd);
+            --hover-gradient: linear-gradient(45deg, #1565c0, #2196f3);
+        }
 
-/* Alternatif tema (mor tonları) */
-[data-theme="purple"] {
-    --primary-color: #6c5ce7;
-    --secondary-color: #ffeaa7;
-    --text-color: #2d3436;
-    --bg-color: #ffffff;
-    --accent-color: #fd79a8;
-    --card-bg: #f0f0f0;
-    --klapet-color: #000000;
-    --microphone-color: #00b894;
-    --divider-color: #e0e0e0;
-    --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
-    --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
-    --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
-}
+        /* Alternatif tema (mor tonları) */
+        [data-theme="purple"] {
+            --primary-color: #6c5ce7;
+            --secondary-color: #ffeaa7;
+            --text-color: #2d3436;
+            --bg-color: #ffffff;
+            --accent-color: #fd79a8;
+            --card-bg: #f0f0f0;
+            --klapet-color: #000000;
+            --microphone-color: #00b894;
+            --divider-color: #e0e0e0;
+            --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
+            --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+            --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
+        }
+
+        .theme-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .theme-btn {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .default-theme {
+            background: linear-gradient(45deg, #1a237e, #1565c0);
+        }
+
+        .purple-theme {
+            background: linear-gradient(45deg, #6c5ce7, #a55eea);
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
         
         * {
             margin: 0;
@@ -59,7 +87,6 @@
             overflow-x: hidden;
         }
 
-        /* Scroll Indicator */
         .scroll-indicator {
             position: fixed;
             top: 0;
@@ -70,7 +97,6 @@
             width: 0%;
         }
 
-        /* Scroll Top Button */
         .scroll-top {
             position: fixed;
             bottom: 20px;
@@ -97,7 +123,6 @@
             transform: translateY(-5px);
         }
 
-        /* Container */
         .container {
             width: 90%;
             max-width: 1200px;
@@ -105,9 +130,8 @@
             padding: 0 20px;
         }
 
-        /* Header */
         header {
-            background: rgba(108, 92, 231, 0.98);
+            background: rgba(26, 35, 126, 0.98);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: fixed;
@@ -116,10 +140,6 @@
             z-index: 1000;
             transition: transform 0.3s ease;
         }
-        <div class="theme-switcher">
-          <button onclick="setTheme('default')" class="theme-btn default-theme">Lacivert</button>
-          <button onclick="setTheme('purple')" class="theme-btn purple-theme">Mor</button>
-        </div>
 
         header.scroll-down {
             transform: translateY(-100%);
@@ -129,7 +149,6 @@
             transform: translateY(0);
         }
 
-        /* Logo */
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
@@ -143,7 +162,6 @@
             transform: scale(1.05);
         }
 
-        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
@@ -174,7 +192,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--secondary-color);
+            background: #2196f3;
             transition: 0.3s;
         }
 
@@ -182,9 +200,8 @@
             width: 100%;
         }
 
-        /* Announcement Bar */
         .announcement-bar {
-            background: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             padding: 10px 0;
             overflow: hidden;
@@ -206,7 +223,7 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
-        /* Hero Section */
+
         .hero {
             min-height: 100vh;
             padding-top: 80px;
@@ -218,29 +235,26 @@
             position: relative;
             overflow: hidden;
         }
-        
-        /* Hero Section içindeki ikonlar için stil */
+
         .klapet, .microphone {
             position: absolute;
             font-size: 8rem;
             opacity: 0.2;
             color: var(--bg-color);
         }
-        
+
         .klapet {
-            left: -100px; /* Başlangıçta ekranın dışında */
+            left: -100px;
             top: 30%;
             animation: slideFromLeft 2s forwards, upDown 3s infinite;
         }
-        
+
         .microphone {
-            right: -100px; /* Başlangıçta ekranın dışında */
+            right: -100px;
             bottom: 30%;
             animation: slideFromRight 2s forwards, rotate 3s infinite;
         }
-        
-        /* Animasyonlar */
-        @keyframes slideFromLeft {
+                @keyframes slideFromLeft {
             to {
                 left: 10%;
             }
@@ -273,10 +287,19 @@
             }
         }
         
-        /* Mobil cihazlar için responsive ayarlar */
         @media (max-width: 768px) {
             .klapet, .microphone {
                 font-size: 4rem;
+            }
+            
+            nav ul {
+                background: linear-gradient(45deg, #1a237e, #1565c0);
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                padding: 1rem 0;
             }
         }
         
@@ -313,7 +336,6 @@
             animation: slideUp 1s ease 0.6s forwards;
         }
 
-        /* Buttons */
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
@@ -353,11 +375,10 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* Cards */
         .card {
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(26, 35, 126, 0.1);
             border-radius: 20px;
             padding: 2.5rem;
             text-align: center;
@@ -399,7 +420,6 @@
             transform: scale(1.1);
         }
 
-        /* Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -407,7 +427,6 @@
             padding: 0 1rem;
         }
 
-        /* Sections */
         section {
             padding: 6rem 0;
             position: relative;
@@ -434,7 +453,6 @@
             background: var(--divider-color);
         }
 
-        /* Headings */
         h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
@@ -445,7 +463,6 @@
             line-height: 1.2;
         }
 
-        /* Event Countdown */
         .event-countdown {
             display: flex;
             justify-content: center;
@@ -469,7 +486,6 @@
             color: var(--primary-color);
         }
 
-        /* Contact Form */
         .contact-form {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -489,7 +505,7 @@
         .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: 1px solid rgba(108, 92, 231, 0.2);
+            border: 1px solid rgba(26, 35, 126, 0.2);
             border-radius: 8px;
             background: rgba(255,255,255,0.9);
             transition: all 0.3s ease;
@@ -502,7 +518,7 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-                /* Footer Styles */
+
         footer {
             background: var(--primary-gradient);
             color: var(--bg-color);
@@ -588,7 +604,6 @@
             margin-bottom: 0.8rem;
         }
 
-        /* Animations */
         @keyframes slideUp {
             from {
                 transform: translateY(30px);
@@ -605,7 +620,6 @@
             100% { background-position: 60px 60px; }
         }
 
-        /* Responsive Styles */
         @media (max-width: 768px) {
             nav ul {
                 display: none;
@@ -718,9 +732,13 @@
                     <li><a href="#cinema">Sinema</a></li>
                     <li><a href="#politics">Siyaset</a></li>
                     <li><a href="#events">Etkinlikler</a></li>
-                     <!-- Değiştirilen kısım -->
                     <li><a href="#contact">İletişim</a></li>
                 </ul>
+                <!-- Tema değiştirici butonları -->
+                <div class="theme-switcher">
+                    <button onclick="setTheme('default')" class="theme-btn default-theme">Lacivert</button>
+                    <button onclick="setTheme('purple')" class="theme-btn purple-theme">Mor</button>
+                </div>
                 <div class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </div>
@@ -747,6 +765,7 @@
         <i class="fas fa-film klapet"></i>
         <i class="fas fa-microphone-alt microphone"></i>
     </section>
+
     <!-- Cinema Section -->
     <section id="cinema">
         <div class="container">
@@ -871,9 +890,22 @@
             </div>
         </div>
     </footer>
-        <!-- Scripts -->
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/scrollreveal"></script>
     <script>
+        // Tema değiştirme fonksiyonu
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('theme', themeName);
+        }
+
+        // Sayfa yüklendiğinde kaydedilmiş temayı yükle
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            setTheme(savedTheme);
+        });
+
         // Scroll Indicator
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -938,30 +970,6 @@
             lastScroll = currentScroll;
         });
 
-        // Event Countdown
-        function updateCountdown() {
-            const eventDate = new Date('2024-06-12T19:00:00').getTime();
-            const now = new Date().getTime();
-            const gap = eventDate - now;
-
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
-
-            const d = Math.floor(gap / day);
-            const h = Math.floor((gap % day) / hour);
-            const m = Math.floor((gap % hour) / minute);
-            const s = Math.floor((gap % minute) / second);
-
-            document.querySelector('.days').innerText = d < 10 ? '0' + d : d;
-            document.querySelector('.hours').innerText = h < 10 ? '0' + h : h;
-            document.querySelector('.minutes').innerText = m < 10 ? '0' + m : m;
-            document.querySelector('.seconds').innerText = s < 10 ? '0' + s : s;
-        }
-
-        setInterval(updateCountdown, 1000);
-
         // ScrollReveal Animations
         ScrollReveal().reveal('.card', {
             delay: 200,
@@ -983,70 +991,28 @@
             interval: 100
         });
 
-        // Form Submit Loading
+        // Form Submit
         const form = document.querySelector('form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Form verilerini al
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
-            
-            // Loading göster
             const btn = form.querySelector('button');
             const originalText = btn.innerText;
             btn.innerText = 'Gönderiliyor...';
             btn.disabled = true;
             
-            // Form gönderimi simülasyonu
             setTimeout(() => {
-                // Başarılı gönderim simülasyonu
                 btn.innerText = 'Gönderildi!';
                 btn.style.backgroundColor = '#00b894';
-                
-                // Formu sıfırla
                 form.reset();
                 
-                // Butonu eski haline getir
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.style.backgroundColor = '';
                     btn.disabled = false;
                 }, 2000);
             }, 1500);
-        });
-
-        // Page Transition Effect
-        function pageTransition() {
-            const transition = document.createElement('div');
-            transition.className = 'page-transition';
-            document.body.appendChild(transition);
-            
-            setTimeout(() => {
-                transition.style.transform = 'scaleY(1)';
-            }, 100);
-            
-            setTimeout(() => {
-                transition.style.transform = 'scaleY(0)';
-                transition.style.transformOrigin = 'bottom';
-            }, 600);
-            
-            setTimeout(() => {
-                transition.remove();
-            }, 1200);
-        }
-
-        // Links için page transition
-        document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.href !== '#' && !link.href.startsWith('#')) {
-                    e.preventDefault();
-                    pageTransition();
-                    setTimeout(() => {
-                        window.location = link.href;
-                    }, 400);
-                }
-            });
         });
     </script>
 </body>
