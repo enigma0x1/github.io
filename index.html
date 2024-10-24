@@ -52,6 +52,15 @@
             overflow: hidden;
             border: 2px solid #fff;
             transition: transform 0.3s ease;
+            -webkit-tap-highlight-color: transparent; /* Mobilde dokunma vurgusunu kaldır */
+            touch-action: manipulation; /* Dokunma davranışını iyileştir */
+        }
+        
+        @media (max-width: 768px) {
+            .theme-toggle {
+                width: 25px;
+                height: 25px;
+            }
         }
         
         .theme-toggle:hover {
@@ -955,13 +964,16 @@
                 themeToggle.classList.add('purple-active');
             }
         
-            // Tema değiştirici tıklama olayı
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'purple' ? 'default' : 'purple';
-                
-                setTheme(newTheme);
-                themeToggle.classList.toggle('purple-active');
+            // Hem tıklama hem de dokunma olaylarını dinle
+            ['click', 'touchstart'].forEach(eventType => {
+                themeToggle.addEventListener(eventType, (e) => {
+                    e.preventDefault(); // Varsayılan dokunma davranışını engelle
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'purple' ? 'default' : 'purple';
+                    
+                    setTheme(newTheme);
+                    themeToggle.classList.toggle('purple-active');
+                }, { passive: false }); // passive: false ile preventDefault'in çalışmasını sağla
             });
         });
         
