@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Seçimi</title>
+    <title>IndustryHub - B2B Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,8 +15,8 @@
 
         body {
             min-height: 100vh;
-            background: #0f0c29;
-            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            background: #1a1a2e;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,21 +31,40 @@
 
         .header {
             text-align: center;
-            margin-bottom: 50px;
-            color: white;
+            margin-bottom: 60px;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 40px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transform: rotate(45deg);
+        }
+
+        .logo-text {
             background: linear-gradient(to right, #fff, #a7a7a7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.8;
         }
 
         .portal-grid {
@@ -77,6 +96,7 @@
             height: 200px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.3) 100%);
         }
 
         .portal-image::before {
@@ -87,17 +107,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
-        }
-
-        .portal-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .portal-card:hover .portal-image img {
-            transform: scale(1.1);
         }
 
         .portal-content {
@@ -136,13 +145,13 @@
         .portal-features li::before {
             content: '→';
             margin-right: 10px;
-            color: #4CAF50;
+            color: #4facfe;
         }
 
         .portal-button {
             display: inline-block;
             padding: 12px 35px;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
             color: white;
             text-decoration: none;
             border-radius: 25px;
@@ -172,7 +181,7 @@
 
         .portal-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -180,8 +189,14 @@
                 grid-template-columns: 1fr;
             }
             
-            .header h1 {
-                font-size: 2em;
+            .logo {
+                font-size: 30px;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
         }
     </style>
@@ -189,16 +204,18 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Portal Seçimi</h1>
-            <p>İhtiyacınıza uygun portala giriş yapın</p>
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-icon">IH</div>
+                    <span class="logo-text">IndustryHub</span>
+                </div>
+            </div>
         </div>
         
         <div class="portal-grid">
             <!-- Üretici Portalı -->
             <div class="portal-card">
-                <div class="portal-image">
-                    <img src="uretici-bg.jpg" alt="Üretici Portalı">
-                </div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Üretici Portalı</h2>
                     <p class="portal-description">Üreticiden üreticiye özel tedarik ağı</p>
@@ -213,16 +230,14 @@
 
             <!-- Profesyonel Portalı -->
             <div class="portal-card">
-                <div class="portal-image">
-                    <img src="profesyonel-bg.jpg" alt="Profesyonel Portalı">
-                </div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Profesyonel Portalı</h2>
-                    <p class="portal-description">Mimarlar, endüstriyel tasarımcılar ve tasarımcılar için</p>
+                    <p class="portal-description">Tasarımcılar ve üreticiler için B2B platformu</p>
                     <ul class="portal-features">
-                        <li>3B Endüstriyel tasarım dosyaları</li>
+                        <li>Endüstriyel tasarım dosyaları</li>
                         <li>Üretim spesifikasyonları</li>
-                        <li>Toptan alımlar</li>
+                        <li>Direkt üretici bağlantısı</li>
                     </ul>
                     <a href="/profesyonel" class="portal-button">Profesyonel Girişi</a>
                 </div>
@@ -230,9 +245,7 @@
 
             <!-- Perakende Portalı -->
             <div class="portal-card">
-                <div class="portal-image">
-                    <img src="perakende-bg.jpg" alt="Perakende Portalı">
-                </div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Perakende Portalı</h2>
                     <p class="portal-description">Kaliteli ürünler, uygun fiyatlar</p>
