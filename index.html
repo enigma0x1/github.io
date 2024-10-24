@@ -38,10 +38,46 @@
             --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
             --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
         }
+        /* Tema değiştirici stilleri */
         .theme-switcher {
-            display: flex;
-            gap: 10px;
             margin-left: 20px;
+        }
+        
+        .theme-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .theme-half {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+        }
+        
+        .default-half {
+            left: 0;
+            background: linear-gradient(45deg, #1a237e, #1565c0);
+        }
+        
+        .purple-half {
+            right: 0;
+            background: linear-gradient(45deg, #6c5ce7, #a55eea);
+        }
+        
+        /* Aktif tema için stil */
+        .theme-toggle.purple-active {
+            transform: rotate(180deg);
         }
 
         .theme-btn {
@@ -747,10 +783,12 @@
                     <li><a href="#events">Etkinlikler</a></li>
                     <li><a href="#contact">İletişim</a></li>
                 </ul>
-                <!-- Tema değiştirici butonları -->
+      
                 <div class="theme-switcher">
-                    <button onclick="setTheme('default')" class="theme-btn default-theme">Lacivert</button>
-                    <button onclick="setTheme('purple')" class="theme-btn purple-theme">Mor</button>
+                    <div class="theme-toggle">
+                        <div class="theme-half default-half"></div>
+                        <div class="theme-half purple-half"></div>
+                    </div>
                 </div>
                 <div class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
@@ -907,17 +945,30 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/scrollreveal"></script>
     <script>
-        // Tema değiştirme fonksiyonu
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            
+            // Sayfa yüklendiğinde kaydedilmiş temayı uygula
+            setTheme(savedTheme);
+            if(savedTheme === 'purple') {
+                themeToggle.classList.add('purple-active');
+            }
+        
+            // Tema değiştirici tıklama olayı
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'purple' ? 'default' : 'purple';
+                
+                setTheme(newTheme);
+                themeToggle.classList.toggle('purple-active');
+            });
+        });
+        
         function setTheme(themeName) {
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('theme', themeName);
         }
-
-        // Sayfa yüklendiğinde kaydedilmiş temayı yükle
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'default';
-            setTheme(savedTheme);
-        });
 
         // Scroll Indicator
         window.onscroll = function() {
