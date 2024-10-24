@@ -22,7 +22,7 @@
             --card-gradient: linear-gradient(to right bottom, #ffffff, #e3f2fd);
             --hover-gradient: linear-gradient(45deg, #1565c0, #2196f3);
         }
-
+        
         /* Alternatif tema (mor tonları) */
         [data-theme="purple"] {
             --primary-color: #6c5ce7;
@@ -38,7 +38,6 @@
             --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
             --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
         }
-
         .theme-switcher {
             display: flex;
             gap: 10px;
@@ -130,15 +129,29 @@
             padding: 0 20px;
         }
 
+        /* Header stilini güncelle */
         header {
-            background: rgba(26, 35, 126, 0.98);
+            background: var(--primary-gradient); /* Sabit renk yerine tema değişkenini kullan */
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease; /* transform yerine all kullanarak tüm değişimleri animate et */
+        }
+        
+        /* Mobil menü için de güncelleme */
+        @media (max-width: 768px) {
+            nav ul {
+                background: var(--primary-gradient); /* Sabit renk yerine tema değişkenini kullan */
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
         }
 
         header.scroll-down {
