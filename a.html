@@ -3,105 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Seçim Sayfası</title>
+    <title>Portal Seçimi</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f6f8fd 0%, #e9f0f9 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #f5f5f5;
-            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-        .portal-container {
-            display: flex;
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            padding: 20px;
         }
+
         .portal-card {
-            width: 300px;
-            height: 400px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
             position: relative;
+            cursor: pointer;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
         }
+
         .portal-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
-        .portal-content {
-            padding: 20px;
-            text-align: center;
-        }
+
         .portal-image {
             width: 100%;
             height: 200px;
-            background: #eee;
-            margin-bottom: 20px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .portal-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+        }
+
+        .uretici-image {
+            background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .profesyonel-image {
+            background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .normal-image {
+            background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .portal-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .portal-title {
             font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
             margin-bottom: 15px;
-            color: #333;
         }
+
         .portal-description {
             font-size: 16px;
             color: #666;
-            margin-bottom: 20px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
         }
+
+        .portal-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .portal-features li {
+            color: #444;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .portal-features li::before {
+            content: '✓';
+            color: #4CAF50;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
         .portal-button {
             display: inline-block;
-            padding: 10px 30px;
-            background: #007bff;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+            border-radius: 25px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
+
         .portal-button:hover {
-            background: #0056b3;
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portal-card {
+                min-height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="portal-container">
-        <!-- Üretici Portalı -->
-        <div class="portal-card">
-            <div class="portal-content">
-                <div class="portal-image">
-                    <!-- Üretici görseli -->
+    <div class="container">
+        <div class="portal-grid">
+            <!-- Üretici Portalı -->
+            <div class="portal-card">
+                <div class="portal-image uretici-image"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">Üretici Portalı</h2>
+                    <p class="portal-description">Üreticiler için özel çözümler ve toplu alım fırsatları.</p>
+                    <ul class="portal-features">
+                        <li>Toplu sipariş imkanı</li>
+                        <li>Özel fiyatlandırma</li>
+                        <li>B2B işbirlikleri</li>
+                    </ul>
+                    <a href="/uretici" class="portal-button">Üretici Girişi</a>
                 </div>
-                <h2 class="portal-title">Üretici Portalı</h2>
-                <p class="portal-description">Ürünlerinizi satın ve diğer üreticilerle işbirliği yapın</p>
-                <a href="/uretici" class="portal-button">Giriş Yap</a>
             </div>
-        </div>
 
-        <!-- Profesyonel Portalı -->
-        <div class="portal-card">
-            <div class="portal-content">
-                <div class="portal-image">
-                    <!-- Profesyonel görseli -->
+            <!-- Profesyonel Portalı -->
+            <div class="portal-card">
+                <div class="portal-image profesyonel-image"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">Profesyonel Portalı</h2>
+                    <p class="portal-description">Profesyoneller için özel hizmetler ve 3B tasarım araçları.</p>
+                    <ul class="portal-features">
+                        <li>3B tasarım dosyaları</li>
+                        <li>Teknik dökümanlar</li>
+                        <li>Özel sipariş seçenekleri</li>
+                    </ul>
+                    <a href="/profesyonel" class="portal-button">Profesyonel Girişi</a>
                 </div>
-                <h2 class="portal-title">Profesyonel Portalı</h2>
-                <p class="portal-description">3B tasarımlar ve özel sipariş imkanları</p>
-                <a href="/profesyonel" class="portal-button">Giriş Yap</a>
             </div>
-        </div>
 
-        <!-- Normal Kullanıcı Portalı -->
-        <div class="portal-card">
-            <div class="portal-content">
-                <div class="portal-image">
-                    <!-- Normal kullanıcı görseli -->
+            <!-- Normal Portal -->
+            <div class="portal-card">
+                <div class="portal-image normal-image"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">E-Ticaret</h2>
+                    <p class="portal-description">Bireysel müşteriler için online alışveriş deneyimi.</p>
+                    <ul class="portal-features">
+                        <li>Kolay alışveriş</li>
+                        <li>Güvenli ödeme</li>
+                        <li>Hızlı teslimat</li>
+                    </ul>
+                    <a href="/eticaret" class="portal-button">Alışverişe Başla</a>
                 </div>
-                <h2 class="portal-title">E-Ticaret</h2>
-                <p class="portal-description">Online alışveriş deneyimi</p>
-                <a href="/eticaret" class="portal-button">Alışverişe Başla</a>
             </div>
         </div>
     </div>
