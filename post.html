@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern sinemanın düşünsel arkaplanı ve görüntünün hakikati üzerine derinlemesine bir analiz">
+    <meta name="keywords" content="sinema, modern sinema, görüntü, hakikat, film teorisi">
+    <meta name="author" content="AI İhsan Fazlıoğlu">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Modern Sinemanın Düşünsel Arkaplanı">
+    <meta property="og:description" content="Modern sinemanın düşünsel arkaplanı ve görüntünün hakikati üzerine derinlemesine bir analiz">
+    <meta property="og:image" content="path-to-your-image.jpg">
+    
     <title>Blog Yazısı - Sinema ve Siyaset Kulübü</title>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
     <style>
         :root {
             --primary-color: #6c5ce7;
@@ -14,25 +27,48 @@
             --bg-color: #ffffff;
             --accent-color: #fd79a8;
             --card-bg: #f0f0f0;
-            --klapet-color: #000000;
-            --microphone-color: #00b894;
             --divider-color: #e0e0e0;
             --primary-gradient: linear-gradient(45deg, #6c5ce7, #a55eea);
-            --card-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
             --hover-gradient: linear-gradient(45deg, #a55eea, #6c5ce7);
         }
-        
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2d2d2d;
+            --divider-color: #404040;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         /* Header */
@@ -40,10 +76,15 @@
             background: rgba(108, 92, 231, 0.98);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
+            position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             transition: transform 0.3s ease;
+        }
+
+        .header-hidden {
+            transform: translateY(-100%);
         }
 
         .container {
@@ -53,6 +94,7 @@
             padding: 0 20px;
         }
 
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
@@ -62,25 +104,25 @@
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            font-weight: 700;
             color: var(--bg-color);
             text-decoration: none;
             transition: transform 0.3s ease;
         }
 
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
         nav ul {
             list-style: none;
             display: flex;
-        }
-
-        nav ul li {
-            margin-left: 1.5rem;
+            gap: 2rem;
         }
 
         nav ul li a {
             color: var(--bg-color);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             transition: 0.3s;
             position: relative;
         }
@@ -100,13 +142,108 @@
             width: 100%;
         }
 
-        /* Post Header */
+        .menu-toggle {
+            display: none;
+            color: var(--bg-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Font Size Controls */
+        .font-size-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .font-size-controls button {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .font-size-controls button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Scroll To Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 6rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            transform: scale(1.1);
+        }
+                /* Post Header */
         .post-header {
             background: var(--primary-gradient);
             padding: 8rem 0 4rem;
             color: white;
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('path-to-your-header-image.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
         }
 
         .post-title {
@@ -115,6 +252,9 @@
             font-family: 'Playfair Display', serif;
             max-width: 800px;
             margin: 0 auto 1rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
         }
 
         .post-meta {
@@ -123,6 +263,21 @@
             gap: 2rem;
             margin-top: 1rem;
             font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+
+        .reading-time {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease 0.4s;
         }
 
         /* Post Content */
@@ -130,26 +285,100 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 20px 50px;
+            animation: fadeIn 1s ease;
         }
 
         .post-content {
-            background: white;
+            background: var(--bg-color);
             padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.8;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+        }
+
+        .post-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .post-content p {
-            margin-bottom: 1.5rem;
+            text-indent: 2em;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
         }
+
+        .post-content p:nth-child(1) { animation-delay: 0.2s; }
+        .post-content p:nth-child(2) { animation-delay: 0.4s; }
+        .post-content p:nth-child(3) { animation-delay: 0.6s; }
 
         .post-content h2 {
             color: var(--primary-color);
             margin: 2rem 0 1rem;
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .post-content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        /* Table of Contents */
+        .table-of-contents {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .table-of-contents:hover {
+            transform: translateX(10px);
+        }
+
+        .table-of-contents h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+        }
+
+        .table-of-contents ul li {
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .table-of-contents ul li:hover {
+            transform: translateX(5px);
+        }
+
+        .table-of-contents ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .table-of-contents ul li a::before {
+            content: '→';
+            color: var(--primary-color);
         }
 
         /* Share Buttons */
@@ -158,6 +387,7 @@
             gap: 1rem;
             margin: 3rem 0;
             justify-content: center;
+            animation: fadeInUp 1s ease;
         }
 
         .share-button {
@@ -172,88 +402,49 @@
             gap: 0.5rem;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .share-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: 0.5s;
+            transform: skewX(-15deg);
+        }
+
+        .share-button:hover::before {
+            left: 100%;
         }
 
         .share-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-                /* Footer */
-        footer {
-            background: var(--primary-gradient);
-            color: var(--bg-color);
-            padding: 4rem 0 2rem;
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 50px;
-            height: 2px;
-            background: var(--accent-color);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section ul li a {
-            color: var(--bg-color);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .footer-section ul li a:hover {
-            color: var(--accent-color);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            color: var(--bg-color);
-            text-decoration: none;
-            transition: 0.3s;
-            gap: 0.5rem;
-        }
-
-        .social-link:hover {
-            color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 2rem;
-            text-align: center;
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
             nav ul {
                 display: none;
@@ -264,6 +455,7 @@
                 background: var(--primary-gradient);
                 flex-direction: column;
                 padding: 1rem 0;
+                text-align: center;
             }
 
             nav ul.show {
@@ -273,14 +465,10 @@
             nav ul li {
                 margin: 0;
                 padding: 1rem 0;
-                text-align: center;
             }
 
             .menu-toggle {
                 display: block;
-                color: var(--bg-color);
-                font-size: 1.5rem;
-                cursor: pointer;
             }
 
             .post-title {
@@ -302,10 +490,45 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .font-size-controls {
+                bottom: 1rem;
+                left: 1rem;
+            }
+
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .scroll-top {
+                bottom: 1rem;
+                right: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .post-content {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .table-of-contents {
+                padding: 1rem;
+            }
+
+            .post-header {
+                padding: 6rem 0 3rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -329,38 +552,51 @@
     <!-- Post Header -->
     <div class="post-header">
         <div class="container">
-            <h1 class="post-title">      Modern Sinemanın Düşünsel Arkaplanı: Görüntünün Hakikati Meselesi</h1>
+            <h1 class="post-title">Modern Sinemanın Düşünsel Arkaplanı: Görüntünün Hakikati Meselesi</h1>
             <div class="post-meta">
                 <span><i class="fas fa-user"></i> AI İhsan Fazlıoğlu</span>
                 <span><i class="fas fa-calendar"></i> 23 Ekim 2024</span>
                 <span><i class="fas fa-tag"></i> Sinema</span>
             </div>
+            <div class="reading-time">
+                <i class="far fa-clock"></i>
+                <span>Tahmini okuma süresi: 8 dakika</span>
+            </div>
         </div>
     </div>
 
-    <!-- Post Content -->
+    <!-- Main Content -->
     <main class="post-container">
         <article class="post-content">
-            <p>
-          
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h3>İçindekiler</h3>
+                <ul>
+                    <li><a href="#section1">Giriş</a></li>
+                    <li><a href="#section2">Görüntünün Hakikati</a></li>
+                    <li><a href="#section3">Modern Sinemanın Krizi</a></li>
+                    <li><a href="#section4">Çözüm Önerileri</a></li>
+                    <li><a href="#section5">Sonuç</a></li>
+                </ul>
+            </div>
 
-Meseleyi vaz' etmek gerekirse, modern sinemanın karşı karşıya kaldığı temel problem, görüntünün hakikatini idrak meselesidir. Burada "hakikat" kavramından muradımız, görüntünün sadece teknik bir imkân olarak değil, varlığın kendini ifşa etme biçimi olarak nasıl tezahür ettiğidir. Malum olduğu üzere, kadim düşünce geleneğimizde "görmek" fiili, basit bir algılama eyleminden öte, varlığın hakikatine nüfuz etme çabasının bir tezahürüdür.
+            <!-- Post Content -->
+            <h2 id="section1">Giriş</h2>
+            <p>[Yazının içeriği buraya gelecek...]</p>
 
-Modern sinema, tekniğin tahakkümü altında, bu hakikat meselesini çoğu kez göz ardı etmektedir. Hâlbuki mesele, görüntünün teknik imkânlarla yeniden üretimi değil, görüntü üzerinden hakikatin nasıl tecessüm edeceği meselesidir. Bu bağlamda, Bergson'un "süre" kavramı ile Heidegger'in "varlığın açımlanması" düşüncesi arasında kuracağımız ilişki, bize yeni bir perspektif sunabilir.
+            <h2 id="section2">Görüntünün Hakikati</h2>
+            <p>[Yazının içeriği buraya gelecek...]</p>
 
-Şöyle ki, modern sinemanın krizi, temelde bir idrak krizidir. Bu kriz, görüntünün hakikatini, teknik imkânların gölgesinde kaybetme tehlikesidir. Burada "teknik" kavramından kastımız, sadece teknolojik aygıtlar değil, düşüncenin kendisini de tekniklleştiren modern paradigmanın bütünüdür. Bu paradigma içinde sinema, hakikatin kendini gösterme biçimi olmaktan çıkıp, sadece bir eğlence ve gösteri aracına dönüşme tehlikesiyle karşı karşıyadır.
+            <h2 id="section3">Modern Sinemanın Krizi</h2>
+            <p>[Yazının içeriği buraya gelecek...]</p>
 
-Peki, bu durumda ne yapmalı? Öncelikle, görüntünün hakikatini yeniden düşünmemiz gerekiyor. Bu düşünme faaliyeti, modern tekniğin imkânlarını reddetmek değil, bu imkânları hakikatin tezahürü için nasıl kullanabileceğimizi sorgulamaktır. Tarkovski'nin dediği gibi, "Sinema, zamanı mühürlemektir." Bu mühürleme faaliyeti, teknik bir kayıt işlemi değil, zamanın hakikatini görünür kılma çabasıdır.
+            <h2 id="section4">Çözüm Önerileri</h2>
+            <p>[Yazının içeriği buraya gelecek...]</p>
 
-Modern sinemacının karşısındaki en büyük meydan okuma, görüntünün teknik mükemmeliyeti ile hakikatin kendini gösterme imkânı arasındaki dengeyi kurabilmektir. Bu denge, sadece estetik bir mesele değil, ontolojik ve epistemolojik bir meseledir. Çünkü görüntü, varlığın kendini gösterme biçimlerinden biridir ve bu gösterme biçimi, modern tekniğin tahakkümü altında yeni bir anlam kazanmaktadır.
+            <h2 id="section5">Sonuç</h2>
+            <p>[Yazının içeriği buraya gelecek...]</p>
 
-Netice-i kelam, modern sinemanın geleceği, bu hakikat meselesini nasıl ele alacağına bağlıdır. Eğer sinema, sadece teknik imkânların gösterisi olarak kalırsa, hakikatin kendini gösterme imkânını kaybedecektir. Ancak, teknik imkânları hakikatin tezahürü için bir vasıta olarak kullanabilirse, yeni bir düşünme ve görme biçiminin kapısını aralayabilir.
-
-Bu bağlamda, sinemacılarımıza düşen vazife, teknik mükemmeliyetin peşinde koşarken, görüntünün hakikatini unutmamaktır. Zira hakikat, kendini göstermek için her daim bir imkân arar ve modern sinema, bu imkânın en güçlü vasıtalarından biridir. Yeter ki biz, bu vasıtayı doğru okuyabilelim ve kullanabilelim.
-
-Son tahlilde, modern sinemanın meselesi, teknik bir mesele değil, düşünsel bir meseledir. Bu düşünsel meseleyi hakkıyla idrak etmeden, teknik imkânların bize sunduğu fırsatları da doğru değerlendiremeyiz. O halde, önce düşünmeyi öğrenmeli, sonra görmeyi...
-            </p>
-
+            <!-- Share Buttons -->
             <div class="share-buttons">
                 <button class="share-button" style="background: #1DA1F2;">
                     <i class="fab fa-twitter"></i> Twitter'da Paylaş
@@ -375,50 +611,94 @@ Son tahlilde, modern sinemanın meselesi, teknik bir mesele değil, düşünsel 
         </article>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>SS Kulübü</h3>
-                    <p>Sanatın ve toplumun kesiştiği noktada buluşalım.</p>
-                    <div class="social-links">
-                        <a href="https://instagram.com/sinemavesiyaset" target="_blank" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                            <span>@sinemavesiyaset</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Hızlı Linkler</h3>
-                    <ul>
-                        <li><a href="index.html">Ana Sayfa</a></li>
-                        <li><a href="index.html#cinema">Sinema</a></li>
-                        <li><a href="index.html#politics">Siyaset</a></li>
-                        <li><a href="index.html#events">Etkinlikler</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <p><i class="fas fa-envelope"></i> info@sskulubu.com</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Designed by Fatih Emre Aksoy &#x1F5A4;</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Font Size Controls -->
+    <div class="font-size-controls">
+        <button class="decrease" title="Yazı boyutunu küçült">A-</button>
+        <button class="increase" title="Yazı boyutunu büyüt">A+</button>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Scroll To Top -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
-        // Mobil menü toggle
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+
+            // Scroll To Top Button Display
+            if (winScroll > 300) {
+                document.getElementById("scrollTop").style.display = "flex";
+            } else {
+                document.getElementById("scrollTop").style.display = "none";
+            }
+        };
+
+        // Header Hide/Show on Scroll
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > lastScrollTop) {
+                document.querySelector("header").classList.add("header-hidden");
+            } else {
+                document.querySelector("header").classList.remove("header-hidden");
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+
+        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const menu = document.getElementById('menu');
-
         menuToggle.addEventListener('click', () => {
             menu.classList.toggle('show');
         });
 
-        // Paylaşım butonları
+        // Font Size Controls
+        const content = document.querySelector('.post-content');
+        let fontSize = 1.2;
+        
+        document.querySelector('.increase').addEventListener('click', () => {
+            if (fontSize < 1.6) {
+                fontSize += 0.1;
+                content.style.fontSize = `${fontSize}rem`;
+            }
+        });
+
+        document.querySelector('.decrease').addEventListener('click', () => {
+            if (fontSize > 0.8) {
+                fontSize -= 0.1;
+                content.style.fontSize = `${fontSize}rem`;
+            }
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme', 
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+            themeToggle.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';        });
+
+        // Scroll To Top Functionality
+        document.getElementById('scrollTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Share Buttons
         document.querySelectorAll('.share-button').forEach(button => {
             button.addEventListener('click', function() {
                 const platform = this.querySelector('i').classList[1].split('-')[1];
@@ -440,6 +720,109 @@ Son tahlilde, modern sinemanın meselesi, teknik bir mesele değil, düşünsel 
                 
                 window.open(shareUrl, '_blank');
             });
+        });
+
+        // Smooth Scroll for Table of Contents
+        document.querySelectorAll('.table-of-contents a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for Fade In Animations
+        const observerOptions = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.post-content p, .post-content h2').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+
+        // Reading Progress Calculation
+        function calculateReadingTime() {
+            const text = document.querySelector('.post-content').textContent;
+            const wordCount = text.trim().split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / 200); // Ortalama okuma hızı: dakikada 200 kelime
+            document.querySelector('.reading-time span').textContent = 
+                `Tahmini okuma süresi: ${readingTime} dakika`;
+        }
+
+        calculateReadingTime();
+
+        // Handle Mobile Menu Close on Outside Click
+        document.addEventListener('click', (e) => {
+            if (menu.classList.contains('show') && 
+                !e.target.closest('#menu') && 
+                !e.target.closest('.menu-toggle')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // Save Theme Preference to Local Storage
+        function setThemePreference(theme) {
+            localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            themeToggle.innerHTML = theme === 'dark' 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+        }
+
+        // Check for Saved Theme Preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setThemePreference(savedTheme);
+        }
+
+        // Handle Font Size Preference
+        function saveFontSize(size) {
+            localStorage.setItem('fontSize', size);
+        }
+
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize) {
+            fontSize = parseFloat(savedFontSize);
+            content.style.fontSize = `${fontSize}rem`;
+        }
+
+        // Update font size and save preference
+        document.querySelector('.increase').addEventListener('click', () => {
+            if (fontSize < 1.6) {
+                fontSize += 0.1;
+                content.style.fontSize = `${fontSize}rem`;
+                saveFontSize(fontSize);
+            }
+        });
+
+        document.querySelector('.decrease').addEventListener('click', () => {
+            if (fontSize > 0.8) {
+                fontSize -= 0.1;
+                content.style.fontSize = `${fontSize}rem`;
+                saveFontSize(fontSize);
+            }
         });
     </script>
 </body>
