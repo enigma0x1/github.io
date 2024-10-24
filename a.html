@@ -149,74 +149,62 @@
             font-size: 1.1rem;
         }
 
-        /* New Portal Grid */
+        /* Portal Grid - New Design */
         .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 30px;
             padding: 20px;
-            perspective: 1000px;
+            margin-top: 40px;
         }
 
         .portal-card {
-            height: 400px;
-            position: relative;
-        }
-
-        .portal-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .portal-card:hover .portal-inner {
-            transform: rotateY(180deg);
-        }
-
-        .portal-front, .portal-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            height: 300px;
+            transition: all 0.5s ease;
+            position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .portal-front {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+        .portal-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .portal-back {
-            background: linear-gradient(145deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
-            transform: rotateY(180deg);
+        .portal-image {
+            width: 40%;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease;
         }
 
-        .portal-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            width: 100px;
-            height: 100px;
+        .portal-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .portal-content {
+            width: 60%;
+            padding: 40px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            border-radius: 50%;
-            color: white;
         }
 
         .portal-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
             margin-bottom: 15px;
             background: linear-gradient(to right, #fff, #a7a7a7);
@@ -224,16 +212,16 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .portal-brief {
+        .portal-description {
+            font-size: 16px;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
         .portal-features {
             list-style: none;
             margin-bottom: 30px;
-            text-align: left;
-            width: 100%;
         }
 
         .portal-features li {
@@ -250,7 +238,7 @@
         }
 
         .portal-button {
-            display: inline-block;
+            align-self: flex-start;
             padding: 12px 35px;
             background: linear-gradient(45deg, #00f2fe, #4facfe);
             color: white;
@@ -260,6 +248,8 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .portal-button:hover {
@@ -298,6 +288,22 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 968px) {
+            .portal-card {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .portal-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .portal-content {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
@@ -307,10 +313,6 @@
                 font-size: 1.2rem;
             }
 
-            .portal-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .logo {
                 font-size: 30px;
             }
@@ -359,68 +361,47 @@
             </div>
         </section>
 
-        <!-- New Portal Grid -->
+        <!-- Portal Grid -->
         <div class="portal-grid">
-            <!-- Üretici Portalı -->
             <div class="portal-card">
-                <div class="portal-inner">
-                    <div class="portal-front">
-                        <div class="portal-icon">
-                            <i class="fas fa-industry"></i>
-                        </div>
-                        <h2 class="portal-title">Üretici Portalı</h2>
-                        <p class="portal-brief">Üreticiden üreticiye özel tedarik ağı</p>
-                    </div>
-                    <div class="portal-back">
-                        <ul class="portal-features">
-                            <li>Toptan parça tedariki</li>
-                            <li>Üretici ağına erişim</li>
-                            <li>Fabrikalar arası iş birliği</li>
-                        </ul>
-                        <a href="/uretici" class="portal-button">Üretici Girişi</a>
-                    </div>
+                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">Üretici Portalı</h2>
+                    <p class="portal-description">Üreticiden üreticiye özel tedarik ağı ile işlerinizi büyütün.</p>
+                    <ul class="portal-features">
+                        <li>Toptan parça tedariki</li>
+                        <li>Üretici ağına erişim</li>
+                        <li>Fabrikalar arası iş birliği</li>
+                    </ul>
+                    <a href="/uretici" class="portal-button">Üretici Girişi</a>
                 </div>
             </div>
 
-            <!-- Profesyonel Portalı -->
             <div class="portal-card">
-                <div class="portal-inner">
-                    <div class="portal-front">
-                        <div class="portal-icon">
-                            <i class="fas fa-drafting-compass"></i>
-                        </div>
-                        <h2 class="portal-title">Profesyonel Portalı</h2>
-                        <p class="portal-brief">Tasarımcılar ve üreticiler için B2B platformu</p>
-                    </div>
-                    <div class="portal-back">
-                        <ul class="portal-features">
-                            <li>Endüstriyel tasarım dosyaları</li>
-                            <li>Üretim spesifikasyonları</li>
-                            <li>Direkt üretici bağlantısı</li>
-                        </ul>
-                        <a href="/profesyonel" class="portal-button">Profesyonel Girişi</a>
-                    </div>
+                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">Profesyonel Portalı</h2>
+                    <p class="portal-description">Tasarımcılar ve üreticiler için özel B2B platformu.</p>
+                    <ul class="portal-features">
+                        <li>Endüstriyel tasarım dosyaları</li>
+                        <li>Üretim spesifikasyonları</li>
+                        <li>Direkt üretici bağlantısı</li>
+                    </ul>
+                    <a href="/profesyonel" class="portal-button">Profesyonel Girişi</a>
                 </div>
             </div>
 
-            <!-- Perakende Portalı -->
             <div class="portal-card">
-                <div class="portal-inner">
-                    <div class="portal-front">
-                        <div class="portal-icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <h2 class="portal-title">Perakende Portalı</h2>
-                        <p class="portal-brief">Kaliteli ürünler, uygun fiyatlar</p>
-                    </div>
-                    <div class="portal-back">
-                        <ul class="portal-features">
-                            <li>Geniş ürün yelpazesi</li>
-                            <li>Fabrika çıkış fiyatları</li>
-                            <li>Garantili ürünler</li>
-                        </ul>
-                        <a href="/perakende" class="portal-button">Satın Al</a>
-                    </div>
+                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-content">
+                    <h2 class="portal-title">Perakende Portalı</h2>
+                    <p class="portal-description">Kaliteli ürünler, uygun fiyatlarla sizlerle.</p>
+                    <ul class="portal-features">
+                        <li>Geniş ürün yelpazesi</li>
+                        <li>Fabrika çıkış fiyatları</li>
+                        <li>Garantili ürünler</li>
+                    </ul>
+                    <a href="/perakende" class="portal-button">Satın Al</a>
                 </div>
             </div>
         </div>
