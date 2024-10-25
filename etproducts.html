@@ -33,6 +33,40 @@
             line-height: 1.5;
         }
 
+        /* Loading Spinner */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--gray-light);
+            border-bottom-color: var(--primary-color);
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         /* Header Styles */
         .header {
             background: var(--white);
@@ -60,31 +94,6 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background-color: var(--gray-light);
-            color: var(--primary-color);
-        }
-
-        .nav-link.active {
-            background-color: var(--primary-color);
-            color: var(--white);
         }
 
         /* Search Bar Styles */
@@ -134,10 +143,6 @@
             z-index: 1000;
         }
 
-        .search-bar:focus + .search-suggestions {
-            display: block;
-        }
-
         .suggestion-item {
             padding: 0.75rem 1rem;
             cursor: pointer;
@@ -146,6 +151,31 @@
 
         .suggestion-item:hover {
             background-color: var(--gray-light);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--gray-light);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         /* Main Content */
@@ -198,8 +228,7 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
         }
-
-        /* Product Grid */
+                /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -213,6 +242,16 @@
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .product-card:hover {
@@ -224,6 +263,7 @@
             position: relative;
             padding-top: 75%;
             overflow: hidden;
+            background: var(--gray-light);
         }
 
         .product-image {
@@ -254,7 +294,8 @@
             align-items: center;
             gap: 0.5rem;
         }
-                .product-content {
+
+        .product-content {
             padding: 1.5rem;
         }
 
@@ -365,6 +406,11 @@
     </style>
 </head>
 <body>
+    <!-- Loading Spinner -->
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-container">
@@ -445,104 +491,104 @@
 
         <!-- Product Grid -->
         <section class="product-grid">
-            <!-- Product Card 1 -->
-            <article class="product-card">
-                <div class="product-image-container">
-                    <img src="https://via.placeholder.com/400x300" alt="Ürün" class="product-image">
-                    <span class="model-badge">
-                        <i class="fas fa-cube"></i>
-                        3B Model Mevcut
-                    </span>
-                </div>
-                <div class="product-content">
-                    <div class="product-category">Endüstriyel Ekipmanlar</div>
-                    <h3 class="product-title">Otomatik Kontrol Valfi</h3>
-                    <div class="product-specs">
-                        <span class="spec-tag">STL</span>
-                        <span class="spec-tag">STEP</span>
-                        <span class="spec-tag">Teknik Döküman</span>
-                    </div>
-                    <div class="product-footer">
-                        <div class="product-price">4,999 ₺</div>
-                        <div class="product-actions">
-                            <button class="btn btn-secondary">
-                                <i class="fas fa-eye"></i>
-                                İncele
-                            </button>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-shopping-cart"></i>
-                                Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Product Card 2 -->
-            <article class="product-card">
-                <div class="product-image-container">
-                    <img src="https://via.placeholder.com/400x300" alt="Ürün" class="product-image">
-                    <span class="model-badge">
-                        <i class="fas fa-cube"></i>
-                        3B Model Mevcut
-                    </span>
-                </div>
-                <div class="product-content">
-                    <div class="product-category">Makine Parçaları</div>
-                    <h3 class="product-title">Endüstriyel Pompa Sistemi</h3>
-                    <div class="product-specs">
-                        <span class="spec-tag">STL</span>
-                        <span class="spec-tag">STEP</span>
-                        <span class="spec-tag">Teknik Döküman</span>
-                    </div>
-                    <div class="product-footer">
-                        <div class="product-price">7,499 ₺</div>
-                        <div class="product-actions">
-                            <button class="btn btn-secondary">
-                                <i class="fas fa-eye"></i>
-                                İncele
-                            </button>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-shopping-cart"></i>
-                                Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </article>
+            <!-- Product Cards will be dynamically loaded -->
         </section>
     </main>
 
     <script>
-        // Arama önerilerini göster/gizle
-        const searchBar = document.querySelector('.search-bar');
-        const searchSuggestions = document.querySelector('.search-suggestions');
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.querySelector('.loader-container');
+            const productGrid = document.querySelector('.product-grid');
 
-        searchBar.addEventListener('focus', () => {
-            searchSuggestions.style.display = 'block';
-        });
+            // Örnek ürün verisi
+            const products = [
+                {
+                    image: 'https://via.placeholder.com/400x300',
+                    category: 'Endüstriyel Ekipmanlar',
+                    title: 'Otomatik Kontrol Valfi',
+                    specs: ['STL', 'STEP', 'Teknik Döküman'],
+                    price: '4,999'
+                },
+                {
+                    image: 'https://via.placeholder.com/400x300',
+                    category: 'Makine Parçaları',
+                    title: 'Endüstriyel Pompa Sistemi',
+                    specs: ['STL', 'STEP', 'Teknik Döküman'],
+                    price: '7,499'
+                }
+                // Daha fazla ürün eklenebilir
+            ];
 
-        document.addEventListener('click', (e) => {
-            if (!searchBar.contains(e.target) && !searchSuggestions.contains(e.target)) {
-                searchSuggestions.style.display = 'none';
+            // Ürünleri yükle
+            function loadProducts() {
+                products.forEach((product, index) => {
+                    const delay = index * 100; // Her ürün için kademeli animasyon
+                    setTimeout(() => {
+                        const productCard = createProductCard(product);
+                        productGrid.appendChild(productCard);
+                    }, delay);
+                });
             }
-        });
 
-        // Sepete ekleme işlevi
-        const addToCartButtons = document.querySelectorAll('.btn-primary');
-        let cartCount = 0;
+            // Ürün kartı oluştur
+            function createProductCard(product) {
+                const article = document.createElement('article');
+                article.className = 'product-card';
+                article.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.title}" class="product-image">
+                        <span class="model-badge">
+                            <i class="fas fa-cube"></i>
+                            3B Model Mevcut
+                        </span>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-specs">
+                            ${product.specs.map(spec => `<span class="spec-tag">${spec}</span>`).join('')}
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">${product.price} ₺</div>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    İncele
+                                </button>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Sepete Ekle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return article;
+            }
 
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                cartCount++;
-                updateCartCount();
+            // Sayfa yüklendiğinde loader'ı kaldır ve ürünleri yükle
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    loadProducts();
+                }, 1000);
+            });
+
+            // Arama önerilerini göster/gizle
+            const searchBar = document.querySelector('.search-bar');
+            const searchSuggestions = document.querySelector('.search-suggestions');
+
+            searchBar.addEventListener('focus', () => {
+                searchSuggestions.style.display = 'block';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchBar.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
             });
         });
-
-        function updateCartCount() {
-            const cartCountElement = document.querySelector('.cart-count');
-            cartCountElement.textContent = cartCount;
-        }
     </script>
 </body>
 </html>
