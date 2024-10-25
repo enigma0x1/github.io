@@ -3,89 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IndustryHub - Profesyonel Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>IndustryHub Pro - Ürün Kataloğu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --gray-light: #e2e8f0;
+            --gray-dark: #64748b;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
 
         body {
-            background: #f5f7fa;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
         }
 
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, #24243e, #302b63, #0f0c29);
-            padding: 1rem 2rem;
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
         }
 
-        .nav-container {
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .logo {
-            color: white;
             font-size: 1.5rem;
             font-weight: 700;
+            color: var(--primary-color);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
-        .nav-links a {
-            color: white;
+        .nav-link {
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: #4facfe;
+        .nav-link:hover {
+            background-color: var(--gray-light);
+            color: var(--primary-color);
         }
 
-        .user-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .cart-icon {
-            color: white;
-            font-size: 1.2rem;
-            position: relative;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #4facfe;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         /* Main Content */
@@ -97,32 +95,46 @@
             margin-right: auto;
         }
 
-        /* Filters */
-        .filters {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
+        /* Advanced Filter Section */
+        .filter-section {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
 
-        .filter-container {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
-        .filter-item {
+        .filter-group {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 0.5rem;
         }
 
+        .filter-label {
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
         .filter-select {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 0.5rem;
             outline: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
         }
 
         /* Product Grid */
@@ -133,90 +145,136 @@
         }
 
         .product-card {
-            background: white;
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image-container {
+            position: relative;
+            padding-top: 75%; /* 4:3 Aspect Ratio */
+            overflow: hidden;
         }
 
         .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        .product-info {
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .model-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(37, 99, 235, 0.9);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-content {
             padding: 1.5rem;
         }
 
         .product-category {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
         .product-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 1rem;
-            color: #333;
+            color: var(--text-color);
         }
 
-        .product-details {
+        .product-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-tag {
+            background: var(--gray-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray-dark);
+        }
+                .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
         }
 
         .product-price {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #302b63;
-        }
-
-        .file-format {
-            background: #f0f2f5;
-            padding: 0.3rem 0.8rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
         }
 
         .product-actions {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 0.5rem;
             font-weight: 500;
-            transition: all 0.3s;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #24243e, #302b63);
-            color: white;
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
         }
 
         .btn-secondary {
-            background: #f0f2f5;
-            color: #333;
+            background: var(--gray-light);
+            color: var(--text-color);
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .btn-secondary:hover {
+            background: var(--gray-dark);
+            color: var(--white);
         }
 
-        /* Preview Modal */
+        /* Quick View Modal */
         .modal {
             display: none;
             position: fixed;
@@ -224,40 +282,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             position: relative;
-            width: 80%;
-            max-width: 800px;
-            margin: 50px auto;
-            background: white;
+            width: 90%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: var(--white);
+            border-radius: 1rem;
             padding: 2rem;
-            border-radius: 10px;
+            animation: modalSlideIn 0.3s ease;
         }
 
-        .close-modal {
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .nav-menu {
                 display: none;
             }
 
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .filter-grid {
+                grid-template-columns: 1fr;
             }
 
-            .filter-container {
-                flex-direction: column;
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem auto;
             }
         }
     </style>
@@ -265,57 +337,65 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="nav-container">
+        <div class="header-container">
             <div class="logo">
                 <i class="fas fa-industry"></i>
                 IndustryHub Pro
             </div>
-            <nav class="nav-links">
-                <a href="#"><i class="fas fa-home"></i> Ana Sayfa</a>
-                <a href="#"><i class="fas fa-cube"></i> 3B Modeller</a>
-                <a href="#"><i class="fas fa-drafting-compass"></i> Teknik Çizimler</a>
-                <a href="#"><i class="fas fa-folder"></i> Koleksiyonlar</a>
-            </nav>
-            <div class="user-actions">
-                <div class="cart-icon">
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">Ürünler</a>
+                <a href="#" class="nav-link">3B Modeller</a>
+                <a href="#" class="nav-link">Teknik Çizimler</a>
+                <a href="#" class="nav-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count">0</span>
-                </div>
-                <i class="fas fa-user-circle" style="color: white; font-size: 1.2rem;"></i>
-            </div>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i>
+                </a>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Filters -->
-        <section class="filters">
-            <div class="filter-container">
-                <div class="filter-item">
-                    <label>Kategori:</label>
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Kategori</label>
                     <select class="filter-select">
                         <option>Tüm Kategoriler</option>
-                        <option>Makine Parçaları</option>
-                        <option>Elektronik Komponentler</option>
                         <option>Endüstriyel Ekipmanlar</option>
+                        <option>Makine Parçaları</option>
+                        <option>Otomasyon Sistemleri</option>
                     </select>
                 </div>
-                <div class="filter-item">
-                    <label>Dosya Formatı:</label>
+                <div class="filter-group">
+                    <label class="filter-label">3B Model Format</label>
                     <select class="filter-select">
                         <option>Tüm Formatlar</option>
                         <option>STL</option>
                         <option>STEP</option>
-                        <option>DWG</option>
+                        <option>OBJ</option>
                     </select>
                 </div>
-                <div class="filter-item">
-                    <label>Sırala:</label>
+                <div class="filter-group">
+                    <label class="filter-label">Fiyat Aralığı</label>
                     <select class="filter-select">
+                        <option>Tümü</option>
+                        <option>0 - 1000 ₺</option>
+                        <option>1000 - 5000 ₺</option>
+                        <option>5000+ ₺</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Sıralama</label>
+                    <select class="filter-select">
+                        <option>Önerilen</option>
+                        <option>Fiyat (Düşük-Yüksek)</option>
+                        <option>Fiyat (Yüksek-Düşük)</option>
                         <option>En Yeniler</option>
-                        <option>Fiyat: Düşükten Yükseğe</option>
-                        <option>Fiyat: Yüksekten Düşüğe</option>
-                        <option>En Çok İndirilenler</option>
                     </select>
                 </div>
             </div>
@@ -324,85 +404,91 @@
         <!-- Product Grid -->
         <section class="product-grid">
             <!-- Product Card 1 -->
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="3D Model" class="product-image">
-                <div class="product-info">
-                    <div class="product-category">Makine Parçaları</div>
-                    <h3 class="product-title">Endüstriyel Dişli Mekanizması</h3>
-                    <div class="product-details">
-                        <span class="product-price">₺299</span>
-                        <span class="file-format">STL, STEP</span>
+            <article class="product-card">
+                <div class="product-image-container">
+                    <img src="https://via.placeholder.com/400x300" alt="Ürün" class="product-image">
+                    <span class="model-badge">
+                        <i class="fas fa-cube"></i>
+                        3B Model Mevcut
+                    </span>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Endüstriyel Ekipmanlar</div>
+                    <h3 class="product-title">Otomatik Kontrol Valfi</h3>
+                    <div class="product-specs">
+                        <span class="spec-tag">STL</span>
+                        <span class="spec-tag">STEP</span>
+                        <span class="spec-tag">Teknik Döküman</span>
                     </div>
-                    <div class="product-actions">
-                        <button class="btn btn-primary">Sepete Ekle</button>
-                        <button class="btn btn-secondary">Önizleme</button>
+                    <div class="product-footer">
+                        <div class="product-price">4,999 ₺</div>
+                        <div class="product-actions">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-eye"></i>
+                                İncele
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Sepete Ekle
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Product Card 2 -->
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="3D Model" class="product-image">
-                <div class="product-info">
-                    <div class="product-category">Elektronik Komponentler</div>
-                    <h3 class="product-title">PCB Tasarım Şeması</h3>
-                    <div class="product-details">
-                        <span class="product-price">₺199</span>
-                        <span class="file-format">DWG</span>
+            <article class="product-card">
+                <div class="product-image-container">
+                    <img src="https://via.placeholder.com/400x300" alt="Ürün" class="product-image">
+                    <span class="model-badge">
+                        <i class="fas fa-cube"></i>
+                        3B Model Mevcut
+                    </span>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Makine Parçaları</div>
+                    <h3 class="product-title">Endüstriyel Pompa Sistemi</h3>
+                    <div class="product-specs">
+                        <span class="spec-tag">STL</span>
+                        <span class="spec-tag">STEP</span>
+                        <span class="spec-tag">Teknik Döküman</span>
                     </div>
-                    <div class="product-actions">
-                        <button class="btn btn-primary">Sepete Ekle</button>
-                        <button class="btn btn-secondary">Önizleme</button>
+                    <div class="product-footer">
+                        <div class="product-price">7,499 ₺</div>
+                        <div class="product-actions">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-eye"></i>
+                                İncele
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Sepete Ekle
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- Add more product cards as needed -->
+            <!-- Daha fazla ürün kartı eklenebilir -->
         </section>
     </main>
 
-    <!-- Preview Modal -->
-    <div class="modal" id="previewModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Ürün Önizleme</h2>
-            <!-- Preview content will be loaded here -->
-        </div>
-    </div>
-
     <script>
-        // Modal functionality
-        const modal = document.getElementById('previewModal');
-        const previewButtons = document.querySelectorAll('.btn-secondary');
-        const closeModal = document.querySelector('.close-modal');
-
-        previewButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                modal.style.display = 'block';
-            });
-        });
-
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Cart functionality
+        // Sepete ekleme işlevi
         const addToCartButtons = document.querySelectorAll('.btn-primary');
-        const cartCount = document.querySelector('.cart-count');
-        let count = 0;
+        let cartCount = 0;
 
         addToCartButtons.forEach(button => {
             button.addEventListener('click', () => {
-                count++;
-                cartCount.textContent = count;
+                cartCount++;
+                updateCartCount();
             });
         });
+
+        function updateCartCount() {
+            const cartCountElement = document.querySelector('.cart-count');
+            cartCountElement.textContent = cartCount;
+        }
     </script>
 </body>
 </html>
