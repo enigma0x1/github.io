@@ -26,8 +26,6 @@
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-            --header-height: 80px;
-            --filter-width: 280px;
         }
 
         body {
@@ -35,12 +33,40 @@
             color: var(--text-color);
             line-height: 1.5;
             min-height: 100vh;
-            padding-top: var(--header-height);
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: all 0.3s ease;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: conic-gradient(#0000 10%, var(--primary-color));
+            -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+            animation: loader 1s infinite linear;
+        }
+
+        @keyframes loader {
+            to {transform: rotate(1turn)}
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
@@ -67,6 +93,11 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .search-container {
@@ -82,7 +113,15 @@
             border: 2px solid rgba(99, 102, 241, 0.1);
             border-radius: 2rem;
             font-size: 1rem;
+            transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         .search-icon {
@@ -91,23 +130,36 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray-dark);
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        .search-bar:focus + .search-icon {
+            color: var(--primary-color);
         }
 
         .nav-menu {
             display: flex;
-            gap: 1rem;
+            gap: 2rem;
             align-items: center;
         }
 
         .nav-link {
             color: var(--text-color);
             text-decoration: none;
+            font-weight: 500;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         .nav-link.active {
@@ -115,128 +167,25 @@
             color: var(--white);
         }
 
-        .nav-link:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
-
-        .filter-toggle {
-            display: none;
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
-
-        .filter-toggle button {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 1rem;
-            border-radius: 50%;
-            border: none;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 3.5rem;
-            height: 3.5rem;
-        }
-
-        .filter-section {
-            position: fixed;
-            left: 0;
-            top: var(--header-height);
-            width: var(--filter-width);
-            height: calc(100vh - var(--header-height));
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            overflow-y: auto;
-            transition: transform 0.3s ease;
-            z-index: 900;
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .filter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-title {
+        .nav-link i {
             font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-color);
+            transition: transform 0.3s ease;
         }
 
-        .clear-filters {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        .filter-group {
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .filter-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .filter-select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-light);
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-            background-color: var(--white);
-            cursor: pointer;
-        }
-
-        .active-filters {
-            margin-top: 1rem;
-        }
-
-        .active-filter-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .filter-tag {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .filter-tag button {
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            padding: 0;
-            font-size: 1rem;
+        .nav-link:hover i {
+            transform: scale(1.2);
         }
 
         .main-content {
-            margin-left: var(--filter-width);
+            margin-top: 80px;
             padding: 2rem;
+        }
+                .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .product-grid {
@@ -245,53 +194,224 @@
             gap: 2rem;
         }
 
+        .filter-sidebar {
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .filter-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 0.5rem;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background-color: var(--white);
+            cursor: pointer;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary-color);
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .active-filter-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .active-filter-tag i {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .active-filter-tag i:hover {
+            transform: scale(1.2);
+        }
+
+        .clear-all-filters {
+            background: var(--gray-light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            transition: all 0.3s ease;
+        }
+
+        .clear-all-filters:hover {
+            background: var(--gray-dark);
+            color: white;
+        }
+
+        .filter-summary {
+            margin-top: 1rem;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+
+        .summary-count {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            padding-top: 75%;
+            overflow: hidden;
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        /* Responsive tasarım için medya sorguları */
         @media (max-width: 1024px) {
-            .filter-section {
-                transform: translateX(-100%);
-            }
-
-            .filter-section.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .filter-toggle {
-                display: block;
+            .content-wrapper {
+                grid-template-columns: 1fr 250px;
             }
         }
 
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-sidebar {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
+                background: var(--background-color);
+                z-index: 1000;
+                transition: right 0.3s ease;
                 padding: 1rem;
-                gap: 1rem;
             }
 
-            .search-container {
-                margin: 0;
-                width: 100%;
+            .filter-sidebar.active {
+                right: 0;
             }
 
-            .nav-menu {
-                width: 100%;
+            .filter-toggle {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: var(--primary-color);
+                color: white;
+                padding: 1rem;
+                border-radius: 50%;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1001;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
                 justify-content: center;
-                flex-wrap: wrap;
             }
+        }
 
-            .main-content {
-                padding: 1rem;
-            }
+        /* Kaydırma çubuğu stilleri */
+        .filter-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
 
-            .filter-section {
-                width: 100%;
-            }
+        .filter-sidebar::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 3px;
+        }
+
+        .filter-sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .filter-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
         }
     </style>
 </head>
 <body>
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+
     <header class="header">
         <div class="header-container">
             <a href="#" class="logo">
@@ -328,268 +448,317 @@
         </div>
     </header>
 
-    <button class="filter-toggle">
-        <i class="fas fa-filter"></i>
-    </button>
-
-    <aside class="filter-section">
-        <div class="filter-header">
-            <h2 class="filter-title">Filtreler</h2>
-            <a href="#" class="clear-filters">Filtreleri Temizle</a>
-        </div>
-
-        <div class="filter-group">
-            <label class="filter-label">
-                <i class="fas fa-tags"></i>
-                Kategori
-            </label>
-            <select class="filter-select" id="categoryFilter">
-                <option value="">Tüm Kategoriler</option>
-                <option value="endustriyel">Endüstriyel Ekipmanlar</option>
-                <option value="makine">Makine Parçaları</option>
-                <option value="otomasyon">Otomasyon Sistemleri</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label class="filter-label">
-                <i class="fas fa-cube"></i>
-                3B Model Format
-            </label>
-            <select class="filter-select" id="formatFilter">
-                <option value="">Tüm Formatlar</option>
-                <option value="STL">STL</option>
-                <option value="STEP">STEP</option>
-                <option value="OBJ">OBJ</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label class="filter-label">
-                <i class="fas fa-dollar-sign"></i>
-                Fiyat Aralığı
-            </label>
-            <select class="filter-select" id="priceFilter">
-                <option value="">Tümü</option>
-                <option value="0-1000">0 - 1000 ₺</option>
-                <option value="1000-5000">1000 - 5000 ₺</option>
-                <option value="5000+">5000+ ₺</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label class="filter-label">
-                <i class="fas fa-sort"></i>
-                Sıralama
-            </label>
-            <select class="filter-select" id="sortFilter">
-                <option value="recommended">Önerilen</option>
-                <option value="price-asc">Fiyat (Düşük-Yüksek)</option>
-                <option value="price-desc">Fiyat (Yüksek-Düşük)</option>
-                <option value="newest">En Yeniler</option>
-            </select>
-        </div>
-
-        <div class="active-filters">
-            <h3>Aktif Filtreler</h3>
-            <div class="active-filter-tags" id="activeFilterTags">
-                <!-- Aktif filtreler JavaScript ile buraya eklenecek -->
-            </div>
-        </div>
-    </aside>
-
     <main class="main-content">
-        <div class="product-grid" id="productGrid">
-            <!-- Ürünler JavaScript ile buraya eklenecek -->
+        <div class="content-wrapper">
+            <!-- Sol taraftaki ürün grid'i -->
+            <section class="product-grid">
+                <!-- Ürünler JavaScript ile dinamik olarak yüklenecek -->
+            </section>
+
+            <!-- Sağ taraftaki filtre bölümü -->
+            <aside class="filter-sidebar">
+                <div class="filter-section">
+                    <h3 class="filter-title">Filtreler</h3>
+                    <div class="filter-group">
+                        <label class="filter-label">Kategori</label>
+                        <select class="filter-select">
+                            <option>Tüm Kategoriler</option>
+                            <option>Endüstriyel Ekipmanlar</option>
+                            <option>Makine Parçaları</option>
+                            <option>Otomasyon Sistemleri</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">3B Model Format</label>
+                        <select class="filter-select">
+                            <option>Tüm Formatlar</option>
+                            <option>STL</option>
+                            <option>STEP</option>
+                            <option>OBJ</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Fiyat Aralığı</label>
+                        <select class="filter-select">
+                            <option>Tümü</option>
+                            <option>0 - 1000 ₺</option>
+                            <option>1000 - 5000 ₺</option>
+                            <option>5000+ ₺</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Sıralama</label>
+                        <select class="filter-select">
+                            <option>Önerilen</option>
+                            <option>Fiyat (Düşük-Yüksek)</option>
+                            <option>Fiyat (Yüksek-Düşük)</option>
+                            <option>En Yeniler</option>
+                        </select>
+                    </div>
+                    <div class="active-filters">
+                        <!-- Aktif filtreler buraya eklenecek -->
+                    </div>
+                    <div class="filter-summary">
+                        <!-- Filtre özeti buraya eklenecek -->
+                    </div>
+                </div>
+            </aside>
         </div>
     </main>
+
     <script>
-class ProductManager {
-    constructor() {
-        this.products = [
-            {
-                id: 1,
-                image: 'https://via.placeholder.com/400x300',
-                category: 'Endüstriyel Ekipmanlar',
-                title: 'Yüksek Performanslı Otomatik Kontrol Valfi',
-                specs: ['STL', 'STEP', 'Teknik Döküman'],
-                price: 4999,
-                modelFormats: ['STL', 'STEP'],
-                stock: 15,
-                rating: 4.5
-            },
-            {
-                id: 2,
-                image: 'https://via.placeholder.com/400x300',
-                category: 'Makine Parçaları',
-                title: 'Endüstriyel Santrifüj Pompa Sistemi',
-                specs: ['STL', 'STEP', 'OBJ'],
-                price: 7499,
-                modelFormats: ['STL', 'STEP', 'OBJ'],
-                stock: 8,
-                rating: 4.8
-            },
-            // Daha fazla ürün eklenebilir
-        ];
-        this.filteredProducts = [...this.products];
-        this.activeFilters = new Set();
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
-        this.renderProducts();
-        this.setupFilterToggle();
-    }
-
-    setupEventListeners() {
-        // Filtre değişikliklerini dinle
-        document.querySelectorAll('.filter-select').forEach(select => {
-            select.addEventListener('change', () => this.handleFilters());
-        });
-
-        // Arama
-        document.querySelector('.search-bar').addEventListener('input', 
-            (e) => this.handleSearch(e.target.value));
-
-        // Filtreleri temizle
-        document.querySelector('.clear-filters').addEventListener('click', 
-            (e) => this.clearFilters(e));
-    }
-
-    setupFilterToggle() {
-        const filterToggle = document.querySelector('.filter-toggle');
-        const filterSection = document.querySelector('.filter-section');
-
-        filterToggle.addEventListener('click', () => {
-            filterSection.classList.toggle('active');
-        });
-    }
-
-    handleSearch(searchTerm) {
-        searchTerm = searchTerm.toLowerCase();
-        this.filteredProducts = this.products.filter(product => 
-            product.title.toLowerCase().includes(searchTerm) ||
-            product.category.toLowerCase().includes(searchTerm)
-        );
-        this.renderProducts();
-    }
-
-    handleFilters() {
-        const category = document.getElementById('categoryFilter').value;
-        const format = document.getElementById('formatFilter').value;
-        const price = document.getElementById('priceFilter').value;
-        const sort = document.getElementById('sortFilter').value;
-
-        this.activeFilters.clear();
-
-        // Filtreleme
-        this.filteredProducts = this.products.filter(product => {
-            let matches = true;
-
-            if (category && product.category !== category) matches = false;
-            if (format && !product.modelFormats.includes(format)) matches = false;
-            if (price) {
-                const [min, max] = price.split('-').map(Number);
-                if (max && (product.price < min || product.price > max)) matches = false;
-                if (!max && product.price < min) matches = false;
+        class ProductManager {
+        constructor() {
+            this.products = [
+                {
+                    id: 1,
+                    image: 'https://via.placeholder.com/400x300',
+                    category: 'Endüstriyel Ekipmanlar',
+                    title: 'Yüksek Performanslı Otomatik Kontrol Valfi',
+                    specs: ['STL', 'STEP', 'Teknik Döküman'],
+                    price: '4,999',
+                    modelFormats: ['STL', 'STEP'],
+                    stock: 15,
+                    rating: 4.5,
+                    description: 'Endüstriyel sistemler için geliştirilmiş yüksek hassasiyetli kontrol valfi'
+                },
+                {
+                    id: 2,
+                    image: 'https://via.placeholder.com/400x300',
+                    category: 'Makine Parçaları',
+                    title: 'Endüstriyel Santrifüj Pompa Sistemi',
+                    specs: ['STL', 'STEP', 'OBJ', 'Teknik Döküman'],
+                    price: '7,499',
+                    modelFormats: ['STL', 'STEP', 'OBJ'],
+                    stock: 8,
+                    rating: 4.8,
+                    description: 'Yüksek verimli santrifüj pompa sistemi'
+                },
+                {
+                    id: 3,
+                    image: 'https://via.placeholder.com/400x300',
+                    category: 'Otomasyon Sistemleri',
+                    title: 'Akıllı PLC Kontrol Ünitesi',
+                    specs: ['STL', 'Teknik Döküman', 'Yazılım'],
+                    price: '12,999',
+                    modelFormats: ['STL'],
+                    stock: 5,
+                    rating: 4.7,
+                    description: 'Endüstri 4.0 uyumlu akıllı kontrol ünitesi'
+                },
+                // Daha fazla ürün eklenebilir
+            ];
+    
+            this.filteredProducts = [...this.products];
+            this.cart = [];
+            this.init();
+        }
+    
+        init() {
+            this.setupEventListeners();
+            this.loadProducts();
+            this.updateCartCount();
+            this.hideLoader();
+            this.setupMobileFilters();
+        }
+    
+        setupEventListeners() {
+            // Filtre dinleyicileri
+            const filterSelects = document.querySelectorAll('.filter-select');
+            filterSelects.forEach(select => {
+                select.addEventListener('change', () => this.handleFilters());
+            });
+    
+            // Arama dinleyicisi
+            const searchBar = document.querySelector('.search-bar');
+            searchBar.addEventListener('input', (e) => this.handleSearch(e.target.value));
+    
+            // Responsive menü için event listener
+            window.addEventListener('resize', () => this.handleResponsiveLayout());
+        }
+    
+        setupMobileFilters() {
+            // Mobil filtre toggle butonu oluştur
+            const filterToggle = document.createElement('button');
+            filterToggle.className = 'filter-toggle';
+            filterToggle.innerHTML = '<i class="fas fa-filter"></i>';
+            document.body.appendChild(filterToggle);
+    
+            // Toggle olayını dinle
+            filterToggle.addEventListener('click', () => {
+                const sidebar = document.querySelector('.filter-sidebar');
+                sidebar.classList.toggle('active');
+            });
+    
+            // Dışarı tıklandığında filtreyi kapat
+            document.addEventListener('click', (e) => {
+                const sidebar = document.querySelector('.filter-sidebar');
+                const toggle = document.querySelector('.filter-toggle');
+                
+                if (!sidebar.contains(e.target) && !toggle.contains(e.target) && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
+    
+        handleSearch(searchTerm) {
+            searchTerm = searchTerm.toLowerCase();
+            this.filteredProducts = this.products.filter(product =>
+                product.title.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            this.loadProducts();
+            this.updateFilterSummary();
+        }
+    
+        handleFilters() {
+            const categorySelect = document.querySelector('.filter-select:nth-of-type(1)');
+            const formatSelect = document.querySelector('.filter-select:nth-of-type(2)');
+            const priceSelect = document.querySelector('.filter-select:nth-of-type(3)');
+            const sortSelect = document.querySelector('.filter-select:nth-of-type(4)');
+    
+            this.showActiveFilters(categorySelect, formatSelect, priceSelect, sortSelect);
+    
+            this.filteredProducts = this.products.filter(product => {
+                let matchCategory = categorySelect.value === 'Tüm Kategoriler' || 
+                                  product.category === categorySelect.value;
+                let matchFormat = formatSelect.value === 'Tüm Formatlar' || 
+                                 product.modelFormats.includes(formatSelect.value);
+                let matchPrice = true;
+    
+                const price = parseFloat(product.price.replace(',', ''));
+                switch (priceSelect.value) {
+                    case '0 - 1000 ₺':
+                        matchPrice = price <= 1000;
+                        break;
+                    case '1000 - 5000 ₺':
+                        matchPrice = price > 1000 && price <= 5000;
+                        break;
+                    case '5000+ ₺':
+                        matchPrice = price > 5000;
+                        break;
+                }
+    
+                return matchCategory && matchFormat && matchPrice;
+            });
+    
+            this.sortProducts(sortSelect.value);
+            this.loadProducts();
+            this.updateFilterSummary();
+        }
+    
+        showActiveFilters(categorySelect, formatSelect, priceSelect, sortSelect) {
+            const activeFiltersContainer = document.querySelector('.active-filters');
+            activeFiltersContainer.innerHTML = '';
+    
+            const addFilterTag = (text, filterType) => {
+                if (text && text !== 'Tüm Kategoriler' && text !== 'Tüm Formatlar' && text !== 'Tümü') {
+                    const tag = document.createElement('span');
+                    tag.className = 'active-filter-tag';
+                    tag.innerHTML = `
+                        ${text}
+                        <i class="fas fa-times" onclick="productManager.clearFilter('${filterType}')"></i>
+                    `;
+                    activeFiltersContainer.appendChild(tag);
+                }
+            };
+    
+            addFilterTag(categorySelect.value, 'category');
+            addFilterTag(formatSelect.value, 'format');
+            addFilterTag(priceSelect.value, 'price');
+    
+            if (sortSelect.value !== 'Önerilen') {
+                addFilterTag(`Sıralama: ${sortSelect.value}`, 'sort');
             }
-
-            // Aktif filtreleri kaydet
-            if (category) this.activeFilters.add(`Kategori: ${category}`);
-            if (format) this.activeFilters.add(`Format: ${format}`);
-            if (price) this.activeFilters.add(`Fiyat: ${price}`);
-
-            return matches;
-        });
-
-        // Sıralama
-        this.sortProducts(sort);
-
-        this.renderActiveFilters();
-        this.renderProducts();
-    }
-
-    sortProducts(sortType) {
-        switch (sortType) {
-            case 'price-asc':
-                this.filteredProducts.sort((a, b) => a.price - b.price);
-                break;
-            case 'price-desc':
-                this.filteredProducts.sort((a, b) => b.price - a.price);
-                break;
-            case 'newest':
-                this.filteredProducts.sort((a, b) => b.id - a.id);
-                break;
-            default:
-                this.filteredProducts.sort((a, b) => b.rating - a.rating);
+    
+            if (activeFiltersContainer.children.length > 0) {
+                const clearAllBtn = document.createElement('button');
+                clearAllBtn.className = 'clear-all-filters';
+                clearAllBtn.innerHTML = 'Tüm Filtreleri Temizle';
+                clearAllBtn.onclick = () => this.clearAllFilters();
+                activeFiltersContainer.appendChild(clearAllBtn);
+            }
         }
-    }
-
-    clearFilters(e) {
-        e.preventDefault();
-        document.querySelectorAll('.filter-select').forEach(select => {
-            select.value = '';
-        });
-        this.activeFilters.clear();
-        this.filteredProducts = [...this.products];
-        this.renderActiveFilters();
-        this.renderProducts();
-    }
-
-    renderActiveFilters() {
-        const container = document.getElementById('activeFilterTags');
-        container.innerHTML = '';
-        
-        this.activeFilters.forEach(filter => {
-            const tag = document.createElement('span');
-            tag.className = 'filter-tag';
-            tag.innerHTML = `
-                ${filter}
-                <button onclick="productManager.removeFilter('${filter}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            container.appendChild(tag);
-        });
-    }
-
-    removeFilter(filter) {
-        this.activeFilters.delete(filter);
-        // Filtre değerini sıfırla
-        const [type] = filter.split(':');
-        switch (type.trim()) {
-            case 'Kategori':
-                document.getElementById('categoryFilter').value = '';
-                break;
-            case 'Format':
-                document.getElementById('formatFilter').value = '';
-                break;
-            case 'Fiyat':
-                document.getElementById('priceFilter').value = '';
-                break;
-        }
-        this.handleFilters();
-    }
-
-    renderProducts() {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = '';
-
-        if (this.filteredProducts.length === 0) {
-            grid.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-search"></i>
-                    <p>Ürün bulunamadı</p>
+    
+        updateFilterSummary() {
+            const summaryContainer = document.querySelector('.filter-summary');
+            const totalProducts = this.filteredProducts.length;
+            const totalOriginal = this.products.length;
+    
+            summaryContainer.innerHTML = `
+                <div class="summary-text">
+                    <span class="summary-count">${totalProducts}</span> ürün bulundu
+                    ${totalProducts !== totalOriginal ? 
+                      `(toplam ${totalOriginal} ürün arasından)` : ''}
                 </div>
             `;
-            return;
         }
-
-        this.filteredProducts.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
+    
+        clearFilter(filterType) {
+            const selects = {
+                'category': document.querySelector('.filter-select:nth-of-type(1)'),
+                'format': document.querySelector('.filter-select:nth-of-type(2)'),
+                'price': document.querySelector('.filter-select:nth-of-type(3)'),
+                'sort': document.querySelector('.filter-select:nth-of-type(4)')
+            };
+    
+            if (selects[filterType]) {
+                selects[filterType].value = selects[filterType].options[0].value;
+                this.handleFilters();
+            }
+        }
+    
+        clearAllFilters() {
+            document.querySelectorAll('.filter-select').forEach(select => {
+                select.value = select.options[0].value;
+            });
+            this.handleFilters();
+        }
+    
+        sortProducts(sortBy) {
+            switch (sortBy) {
+                case 'Fiyat (Düşük-Yüksek)':
+                    this.filteredProducts.sort((a, b) => 
+                        parseFloat(a.price.replace(',', '')) - parseFloat(b.price.replace(',', '')));
+                    break;
+                case 'Fiyat (Yüksek-Düşük)':
+                    this.filteredProducts.sort((a, b) => 
+                        parseFloat(b.price.replace(',', '')) - parseFloat(a.price.replace(',', '')));
+                    break;
+                case 'En Yeniler':
+                    this.filteredProducts.sort((a, b) => b.id - a.id);
+                    break;
+                case 'Önerilen':
+                    this.filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+            }
+        }
+    
+        loadProducts() {
+            const productGrid = document.querySelector('.product-grid');
+            productGrid.innerHTML = '';
+    
+            if (this.filteredProducts.length === 0) {
+                productGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <p>Aradığınız kriterlere uygun ürün bulunamadı.</p>
+                    </div>
+                `;
+                return;
+            }
+    
+            this.filteredProducts.forEach(product => {
+                const productCard = this.createProductCard(product);
+                productGrid.appendChild(productCard);
+            });
+        }
+    
+        createProductCard(product) {
+            const article = document.createElement('article');
+            article.className = 'product-card';
+            article.innerHTML = `
                 <div class="product-image-container">
                     <img src="${product.image}" alt="${product.title}" class="product-image">
                     <span class="model-badge">
@@ -601,13 +770,16 @@ class ProductManager {
                     <div class="product-category">${product.category}</div>
                     <h3 class="product-title">${product.title}</h3>
                     <div class="product-specs">
-                        ${product.specs.map(spec => 
-                            `<span class="spec-tag">${spec}</span>`).join('')}
+                        ${product.specs.map(spec => `<span class="spec-tag">${spec}</span>`).join('')}
                     </div>
                     <div class="product-footer">
                         <div class="product-price">${product.price} ₺</div>
                         <div class="product-actions">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-secondary" onclick="productManager.handleProductView(${product.id})">
+                                <i class="fas fa-eye"></i>
+                                İncele
+                            </button>
+                            <button class="btn btn-primary" onclick="productManager.handleAddToCart(${product.id})">
                                 <i class="fas fa-shopping-cart"></i>
                                 Sepete Ekle
                             </button>
@@ -615,15 +787,62 @@ class ProductManager {
                     </div>
                 </div>
             `;
-            grid.appendChild(card);
-        });
+            return article;
+        }
+    
+        hideLoader() {
+            const loader = document.querySelector('.loader-container');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }, 1000);
+        }
+    
+        updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+    
+        handleAddToCart(productId) {
+            const product = this.products.find(p => p.id === productId);
+            if (!product) return;
+    
+            const existingItem = this.cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                this.cart.push({ ...product, quantity: 1 });
+            }
+    
+            this.updateCartCount();
+            this.showNotification('Ürün sepete eklendi');
+        }
+    
+        showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                ${message}
+            `;
+    
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
     }
-}
-
-// Sayfa yüklendiğinde
-document.addEventListener('DOMContentLoaded', () => {
-    window.productManager = new ProductManager();
-});
-</script>
+    
+    // Sayfa yüklendiğinde
+    document.addEventListener('DOMContentLoaded', () => {
+        window.productManager = new ProductManager();
+    });
+    </script>
 </body>
 </html>
