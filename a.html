@@ -55,8 +55,12 @@
         }
 
         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .hero-content {
@@ -149,11 +153,11 @@
             font-size: 1.1rem;
         }
 
-        /* Portal Grid - New Design */
+        /* Portal Grid */
         .portal-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
             padding: 20px;
             margin-top: 40px;
         }
@@ -161,50 +165,59 @@
         .portal-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 30px;
             overflow: hidden;
-            display: flex;
-            height: 300px;
-            transition: all 0.5s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
         }
 
         .portal-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .portal-image {
-            width: 40%;
+            width: 100%;
+            height: 200px;
             position: relative;
             overflow: hidden;
             background-size: cover;
             background-position: center;
-            transition: all 0.5s ease;
         }
 
-        .portal-image::after {
+        .portal-card:nth-child(1) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=800');
+        }
+
+        .portal-card:nth-child(2) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?auto=format&fit=crop&w=800');
+        }
+
+        .portal-card:nth-child(3) .portal-image {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800');
+        }
+
+        .portal-image::before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
         }
 
         .portal-content {
-            width: 60%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 30px;
+            color: white;
         }
 
         .portal-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
             margin-bottom: 15px;
             background: linear-gradient(to right, #fff, #a7a7a7);
@@ -238,18 +251,34 @@
         }
 
         .portal-button {
-            align-self: flex-start;
+            display: inline-block;
             padding: 12px 35px;
             background: linear-gradient(45deg, #00f2fe, #4facfe);
             color: white;
             text-decoration: none;
             border-radius: 25px;
             font-weight: 500;
+            text-align: center;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+        }
+
+        .portal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .portal-button:hover::before {
+            left: 100%;
         }
 
         .portal-button:hover {
@@ -288,22 +317,6 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 968px) {
-            .portal-card {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .portal-image {
-                width: 100%;
-                height: 200px;
-            }
-
-            .portal-content {
-                width: 100%;
-            }
-        }
-
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
@@ -313,6 +326,10 @@
                 font-size: 1.2rem;
             }
 
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .logo {
                 font-size: 30px;
             }
@@ -327,6 +344,27 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .portal-card {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .portal-card:nth-child(1) { animation-delay: 0.2s; }
+        .portal-card:nth-child(2) { animation-delay: 0.4s; }
+        .portal-card:nth-child(3) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
@@ -360,14 +398,15 @@
                 <div class="stat-label">Ülke</div>
             </div>
         </section>
-
+        
         <!-- Portal Grid -->
         <div class="portal-grid">
+            <!-- Üretici Portalı -->
             <div class="portal-card">
-                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Üretici Portalı</h2>
-                    <p class="portal-description">Üreticiden üreticiye özel tedarik ağı ile işlerinizi büyütün.</p>
+                    <p class="portal-description">Üreticiden üreticiye özel tedarik ağı</p>
                     <ul class="portal-features">
                         <li>Toptan parça tedariki</li>
                         <li>Üretici ağına erişim</li>
@@ -377,11 +416,12 @@
                 </div>
             </div>
 
+            <!-- Profesyonel Portalı -->
             <div class="portal-card">
-                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Profesyonel Portalı</h2>
-                    <p class="portal-description">Tasarımcılar ve üreticiler için özel B2B platformu.</p>
+                    <p class="portal-description">Tasarımcılar ve üreticiler için B2B platformu</p>
                     <ul class="portal-features">
                         <li>Endüstriyel tasarım dosyaları</li>
                         <li>Üretim spesifikasyonları</li>
@@ -391,11 +431,12 @@
                 </div>
             </div>
 
+            <!-- Perakende Portalı -->
             <div class="portal-card">
-                <div class="portal-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800')"></div>
+                <div class="portal-image"></div>
                 <div class="portal-content">
                     <h2 class="portal-title">Perakende Portalı</h2>
-                    <p class="portal-description">Kaliteli ürünler, uygun fiyatlarla sizlerle.</p>
+                    <p class="portal-description">Kaliteli ürünler, uygun fiyatlar</p>
                     <ul class="portal-features">
                         <li>Geniş ürün yelpazesi</li>
                         <li>Fabrika çıkış fiyatları</li>
