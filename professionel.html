@@ -19,35 +19,94 @@
             background: #0f0c29;
             background: linear-gradient(135deg, #24243e, #302b63, #0f0c29);
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 1000px;
             padding: 20px;
         }
 
-        .professional-header {
-            text-align: center;
-            padding: 50px 0;
+        .auth-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            min-height: 600px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .professional-title {
+        .auth-image {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600') center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .auth-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 12, 41, 0.8);
+        }
+
+        .image-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .image-content h2 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #a7a7a7);
+            background: linear-gradient(to right, #fff, #4facfe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .login-section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+        .image-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .auth-forms {
+            flex: 1;
             padding: 40px;
-            max-width: 500px;
-            margin: 0 auto;
-            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .form-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .form-container.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #a7a7a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .form-group {
@@ -60,7 +119,7 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -70,12 +129,17 @@
             font-size: 16px;
         }
 
-        .form-group input:focus {
+        .form-group select option {
+            background: #24243e;
+            color: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #4facfe;
         }
 
-        .login-button {
+        .auth-button {
             width: 100%;
             padding: 12px;
             background: linear-gradient(45deg, #00f2fe, #4facfe);
@@ -85,138 +149,156 @@
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .login-button:hover {
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-switch {
+            color: #4facfe;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .social-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            background: #4facfe;
             transform: translateY(-2px);
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: #4facfe;
-        }
-
-        .feature-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 40px 0;
-            position: relative;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .divider span {
-            background: #0f0c29;
-            padding: 0 20px;
-            color: rgba(255, 255, 255, 0.5);
-            position: relative;
-        }
-
         @media (max-width: 768px) {
-            .professional-title {
-                font-size: 2rem;
+            .auth-container {
+                flex-direction: column;
             }
 
-            .login-section {
-                padding: 20px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
+            .auth-image {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="professional-header">
-            <h1 class="professional-title">Profesyonel Portal</h1>
-            <p>Tasarımcılar ve üreticiler için özel platform</p>
-        </div>
-
-        <section class="login-section">
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">E-posta</label>
-                    <input type="email" id="email" required>
+        <div class="auth-container">
+            <div class="auth-image">
+                <div class="image-content">
+                    <h2>IndustryHub</h2>
+                    <p>Tasarımcılar, Endüstri Mühendisleri ve Mimarlar için Profesyonel Platform</p>
                 </div>
-                <div class="form-group">
-                    <label for="password">Şifre</label>
-                    <input type="password" id="password" required>
+            </div>
+            <div class="auth-forms">
+                <!-- Login Form -->
+                <div class="form-container active" id="loginForm">
+                    <div class="form-header">
+                        <h3>Giriş Yap</h3>
+                        <p>Profesyonel hesabınıza giriş yapın</p>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="loginEmail">E-posta</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Şifre</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="auth-button">Giriş Yap</button>
+                        <div class="form-footer">
+                            <p>Hesabınız yok mu? <span class="form-switch" onclick="toggleForm()">Kayıt Ol</span></p>
+                        </div>
+                        <div class="social-login">
+                            <p>Veya şununla giriş yapın:</p>
+                            <div class="social-buttons">
+                                <a href="#" class="social-button"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-button"><i class="fab fa-google"></i></a>
+                                <a href="#" class="social-button"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="login-button">Giriş Yap</button>
-            </form>
-        </section>
 
-        <div class="divider">
-            <span>Profesyonel Özellikler</span>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-drafting-compass feature-icon"></i>
-                <h3 class="feature-title">Tasarım Dosyaları</h3>
-                <p class="feature-description">
-                    Endüstriyel tasarım dosyalarınızı yönetin ve paylaşın.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-cogs feature-icon"></i>
-                <h3 class="feature-title">Üretim Spesifikasyonları</h3>
-                <p class="feature-description">
-                    Detaylı üretim spesifikasyonlarına erişin ve oluşturun.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-industry feature-icon"></i>
-                <h3 class="feature-title">Üretici Bağlantısı</h3>
-                <p class="feature-description">
-                    Doğrudan üreticilerle iletişime geçin ve projelerinizi hayata geçirin.
-                </p>
+                <!-- Signup Form -->
+                <div class="form-container" id="signupForm">
+                    <div class="form-header">
+                        <h3>Kayıt Ol</h3>
+                        <p>Profesyonel hesabınızı oluşturun</p>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="signupName">Ad Soyad</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profession">Meslek</label>
+                            <select id="profession" required>
+                                <option value="">Seçiniz</option>
+                                <option value="designer">Tasarımcı</option>
+                                <option value="engineer">Endüstri Mühendisi</option>
+                                <option value="architect">Mimar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">E-posta</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Şifre</label>
+                            <input type="password" id="signupPassword" required>
+                        </div>
+                        <button type="submit" class="auth-button">Kayıt Ol</button>
+                        <div class="form-footer">
+                            <p>Zaten hesabınız var mı? <span class="form-switch" onclick="toggleForm()">Giriş Yap</span></p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleForm() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (loginForm.classList.contains('active')) {
+                loginForm.classList.remove('active');
+                signupForm.classList.add('active');
+            } else {
+                signupForm.classList.remove('active');
+                loginForm.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
