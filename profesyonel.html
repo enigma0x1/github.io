@@ -159,12 +159,23 @@
             margin-top: 10px;
         }
 
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
         .file-upload-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
             padding: 12px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             color: white;
             text-align: center;
@@ -175,6 +186,15 @@
         .file-upload-btn:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: #4facfe;
+        }
+
+        .file-upload-btn i {
+            font-size: 1.2em;
+        }
+
+        .file-upload-btn.highlight {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.1);
         }
 
         .file-name {
@@ -207,9 +227,19 @@
         }
 
         .form-switch {
+            display: inline-block;
             color: #4facfe;
             cursor: pointer;
-            text-decoration: underline;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(79, 172, 254, 0.1);
+        }
+
+        .form-switch:hover {
+            background: rgba(79, 172, 254, 0.2);
+            transform: translateY(-2px);
         }
 
         .social-login {
@@ -250,7 +280,6 @@
             display: block;
         }
 
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .container {
                 margin: 10px;
@@ -381,7 +410,8 @@
                             <div class="file-input-wrapper">
                                 <input type="file" id="diplomaFile" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect(event)" required>
                                 <label for="diplomaFile" class="file-upload-btn">
-                                    <i class="fas fa-upload"></i> Dosya Seç
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Dosya Seç veya Sürükle Bırak</span>
                                 </label>
                                 <div class="file-name" id="fileName"></div>
                             </div>
@@ -432,6 +462,45 @@
             document.getElementById('fileName').textContent = fileName || '';
         }
 
+        function initializeFileUpload() {
+            const dropZone = document.querySelector('.file-upload-btn');
+            const fileInput = document.getElementById('diplomaFile');
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight(e) {
+                dropZone.classList.add('highlight');
+            }
+
+            function unhighlight(e) {
+                dropZone.classList.remove('highlight');
+            }
+
+            dropZone.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                fileInput.files = files;
+                handleFileSelect({target: fileInput});
+            }
+        }
+
         function handleLogin(event) {
             event.preventDefault();
             // Login işlemleri burada yapılacak
@@ -445,6 +514,9 @@
             console.log('Signup attempt');
             return false;
         }
+
+        // Sayfa yüklendiğinde initialize et
+        document.addEventListener('DOMContentLoaded', initializeFileUpload);
     </script>
 </body>
 </html>
