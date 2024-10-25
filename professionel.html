@@ -22,12 +22,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 1000px;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 20px;
         }
 
         .auth-container {
@@ -36,7 +37,7 @@
             border-radius: 20px;
             overflow: hidden;
             display: flex;
-            min-height: 600px;
+            min-height: 700px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
@@ -77,12 +78,14 @@
         .image-content p {
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 30px;
+            line-height: 1.6;
         }
 
         .auth-forms {
             flex: 1;
             padding: 40px;
             position: relative;
+            overflow-y: auto;
         }
 
         .form-container {
@@ -119,7 +122,8 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .form-group input, .form-group select {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -134,9 +138,49 @@
             color: white;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #4facfe;
+        }
+
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .file-upload label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .file-upload-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #4facfe;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .auth-button {
@@ -197,6 +241,26 @@
             transform: translateY(-2px);
         }
 
+        .other-profession {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .other-profession.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 10px;
+            }
+
+            .auth-container {
+                min-height: 600px;
+            }
+        }
+
         @media (max-width: 768px) {
             .auth-container {
                 flex-direction: column;
@@ -204,6 +268,37 @@
 
             .auth-image {
                 display: none;
+            }
+
+            .auth-forms {
+                padding: 20px;
+            }
+
+            .form-header h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                margin: 0;
+            }
+
+            .auth-forms {
+                padding: 15px;
+            }
+
+            .social-buttons {
+                gap: 10px;
+            }
+
+            .social-button {
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
@@ -224,7 +319,7 @@
                         <h3>Giriş Yap</h3>
                         <p>Profesyonel hesabınıza giriş yapın</p>
                     </div>
-                    <form>
+                    <form onsubmit="return handleLogin(event)">
                         <div class="form-group">
                             <label for="loginEmail">E-posta</label>
                             <input type="email" id="loginEmail" required>
@@ -254,19 +349,24 @@
                         <h3>Kayıt Ol</h3>
                         <p>Profesyonel hesabınızı oluşturun</p>
                     </div>
-                    <form>
+                    <form onsubmit="return handleSignup(event)">
                         <div class="form-group">
                             <label for="signupName">Ad Soyad</label>
                             <input type="text" id="signupName" required>
                         </div>
                         <div class="form-group">
                             <label for="profession">Meslek</label>
-                            <select id="profession" required>
+                            <select id="profession" onchange="toggleOtherProfession()" required>
                                 <option value="">Seçiniz</option>
                                 <option value="designer">Tasarımcı</option>
                                 <option value="engineer">Endüstri Mühendisi</option>
                                 <option value="architect">Mimar</option>
+                                <option value="other">Diğer</option>
                             </select>
+                        </div>
+                        <div class="form-group other-profession" id="otherProfessionGroup">
+                            <label for="otherProfession">Mesleğinizi Belirtin</label>
+                            <input type="text" id="otherProfession">
                         </div>
                         <div class="form-group">
                             <label for="signupEmail">E-posta</label>
@@ -275,6 +375,19 @@
                         <div class="form-group">
                             <label for="signupPassword">Şifre</label>
                             <input type="password" id="signupPassword" required>
+                        </div>
+                        <div class="file-upload">
+                            <label>Diploma veya Yeterlilik Belgesi</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="diplomaFile" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect(event)" required>
+                                <label for="diplomaFile" class="file-upload-btn">
+                                    <i class="fas fa-upload"></i> Dosya Seç
+                                </label>
+                                <div class="file-name" id="fileName"></div>
+                            </div>
+                            <small style="color: rgba(255,255,255,0.6); display: block; margin-top: 5px;">
+                                * PDF, JPG veya PNG formatında diploma veya yeterlilik belgenizi yükleyin.
+                            </small>
                         </div>
                         <button type="submit" class="auth-button">Kayıt Ol</button>
                         <div class="form-footer">
@@ -298,6 +411,39 @@
                 signupForm.classList.remove('active');
                 loginForm.classList.add('active');
             }
+        }
+
+        function toggleOtherProfession() {
+            const profession = document.getElementById('profession');
+            const otherProfessionGroup = document.getElementById('otherProfessionGroup');
+            const otherProfessionInput = document.getElementById('otherProfession');
+
+            if (profession.value === 'other') {
+                otherProfessionGroup.classList.add('active');
+                otherProfessionInput.required = true;
+            } else {
+                otherProfessionGroup.classList.remove('active');
+                otherProfessionInput.required = false;
+            }
+        }
+
+        function handleFileSelect(event) {
+            const fileName = event.target.files[0]?.name;
+            document.getElementById('fileName').textContent = fileName || '';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // Login işlemleri burada yapılacak
+            console.log('Login attempt');
+            return false;
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            // Signup işlemleri burada yapılacak
+            console.log('Signup attempt');
+            return false;
         }
     </script>
 </body>
